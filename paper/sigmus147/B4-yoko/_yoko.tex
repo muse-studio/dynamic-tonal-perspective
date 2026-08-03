@@ -1,0 +1,50 @@
+\documentclass[dvipdfmx,line_length=48zw,column_gap=2zw,number_of_lines=60,baselineskip=12pt]{jlreq}
+\jlreqsetup{itemization_beforeafter_space=0pt}
+\makeatletter
+\RenewBlockHeading{section}{1}{font={\jlreq@keepbaselineskip{\normalsize\sffamily\gtfamily}},indent=0pt,lines=1}
+\RenewBlockHeading{subsection}{2}{font={\jlreq@keepbaselineskip{\normalsize\sffamily\gtfamily}},indent=0pt,lines=1}
+\RenewBlockHeading{subsubsection}{3}{font={\jlreq@keepbaselineskip{\normalsize\sffamily\gtfamily}},indent=0pt,lines=1}
+\makeatother
+\pagestyle{empty}
+% ↑この上の部分は変更しない！
+% （LuaTeXを使う場合は \documentclass[dvipdfmx,... の dvipdfmx, を消す）
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%↓必要なパッケージを追加してください．
+\usepackage{mathtools,amssymb}
+\usepackage{latexsym}
+\usepackage{newtxtext,newtxmath}
+\usepackage[utf8]{inputenc} 	%波ダッシュ（〜）を表記できるようにする
+
+\usepackage{muselabyoko} % ← muselabyoko.sty を読み込む
+
+% \newcommand{\red}[1]{\textcolor{red}{#1}}
+% \newcommand{\cut}[1]{\textcolor{red}{\sout{\textcolor{black}{#1}}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\twocolumn[
+    {\Large
+            \begin{center}
+                %%↓タイトルを入力してください
+                \input{../credit/author-title}
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \end{center}
+        }
+    \vspace{12pt}
+    \begin{flushright}
+        福知山公立大学情報学部　\input{../credit/author-name} \\
+        指導教員　橋田光代
+    \end{flushright}
+    \vspace{1\Cvs}
+]
+
+%% ここから本文を書く
+\input{muselab-yoko-sample}
+
+
+% 参考文献
+\bibliographystyle{../muselabunsrt} % bstファイルの名前
+\bibliography{../muselab-sample} % .bibファイルの名前（Zoteroからエクスポートして作る）
+
+\end{document}
