@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.code-workspace
+
+# LaTeX build products
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+build/
+
+# Local cache and temporary files
+.cache/
+tmp/
+temp/
+
+# Audio and rendered temporary output
+*.asd
+*.peak
+*.tmp
