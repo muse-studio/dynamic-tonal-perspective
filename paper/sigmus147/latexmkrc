@@ -1,0 +1,4 @@
+my $build_root = "$ENV{HOME}/Library/Caches/dtp-build/sigmus147";
+
+$out_dir = $build_root;
+$aux_dir = $build_root;

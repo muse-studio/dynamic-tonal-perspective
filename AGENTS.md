@@ -29,6 +29,19 @@
 - 状態更新はDecisionおよびUpdaterの責務とする。
 - 実装で確認できない事項は断定せず、「要確認」「未確定」「要検証」と記録する。
 
+## Repository bootstrap exceptions
+
+リポジトリ初期構築時に限り、ユーザーが明示的に許可した場合は次を実施してよい。
+
+- git subtree add
+- git subtree pull
+- 初期ディレクトリ整理
+- 初期テンプレート導入
+- 初期化commit
+
+ただし、その都度ユーザーの明示的な許可を得ること。
+通常の開発では commit / merge / rebase / push を自動実行してはならない。
+
 ## 文書・データ・生成物
 
 - LaTeX中間生成物をリポジトリへ含めない。
