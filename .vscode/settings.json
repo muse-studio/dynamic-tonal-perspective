@@ -1,0 +1,72 @@
+// 下記の設定を，VSCodeのユーザー設定ファイルに追加してください，LaTeX WorkshopでIPSJのフォーマットに対応したコンパイルが可能になる．
+// （編集＞設定＞ "Latex-workshop > LaTeX: Recipes" > settings.json で編集
+{
+    "cSpell.words": ["IPSJ", "muselab", "KHcoder"], // スペルチェックの除外対象．適当に追加してください
+    "latex-workshop.latex.recipes": [
+        // 先頭のレシピでコンパイルする
+        {
+            "name": "muselab-pblreport",    // PBL報告書，卒論
+            "tools": ["latexmk-ipsj"] // platexでないと動かない
+        },
+        {
+            "name": "IPSJ",    // 情報処理学会系（muselab-pblreportと動作は同じ）
+            "tools": ["latexmk-ipsj"] // platexでないと動かない
+        },
+        {
+            "name": "LNCS", // ICEC20xx など
+            "tools": ["latexmk-lncs"]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk-ipsj",
+            "command": "latexmk",
+            "args": [
+                "-e",
+                "$latex=q/platex %O -synctex=1 -interaction=nonstopmode -file-line-error %S/",
+                "-e",
+                "$bibtex=q/upbibtex %O -kanji=utf8 %B/",
+                "-e",
+                "$biber=q/biber %O --bblencoding=utf8 -u -U --output_safechars %B/",
+                "-e",
+                "$makeindex=q/upmendex %O -o %D %S/",
+                "-e",
+                "$dvipdf=q/dvipdfmx %O -o %D %S -f msembed.map/",
+                "-norc",
+                "-pdfdvi",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk-lncs",
+            "command": "latexmk",
+            "args": [
+                "-e",
+                "$latex=q/uplatex %O -synctex=1 -interaction=nonstopmode -file-line-error %S/",
+                "-e",
+                "$bibtex=q/upbibtex %O -kanji=utf8 %B/",
+                "-e",
+                "$biber=q/biber %O --bblencoding=utf8 -u -U --output_safechars %B/",
+                "-e",
+                "$makeindex=q/upmendex %O -o %D %S/",
+                "-e",
+                "$dvipdf=q/dvipdfmx %O -o %D %S -f msembed.map/",
+                "-norc",
+                "-pdfdvi",
+                "%DOC%"
+            ]
+        },
+        // 以下はたぶんなくてよい
+        {
+            "name": "kpsetool",
+            "command": "kpsetool",
+            "args": ["-w", "-n", "latex", "tex"]
+        },
+        {
+            "name": "bibtex",
+            "command": "upbibtex",
+            "args": ["-kanji=utf8", "%DOCFILE%"],
+            "env": {}
+        }
+    ]
+}
