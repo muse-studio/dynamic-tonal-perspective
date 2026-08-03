@@ -41,3 +41,20 @@
 - Context: 観測根拠と状態変更が混在すると、判断の検証と実装の保守が難しくなる。
 - Decision: Observation / Feature / Evidence / Decision / State Updateの責務を分離する。Evidenceは状態を変更せず、更新はDecisionおよびUpdaterが担う。
 - Consequences: モジュール境界とデータフローをこの順序に合わせ、既存実装との差は段階的に確認する必要がある。
+
+### 006: SIGMUS147予稿
+
+- Date: 2026-08-03
+- Status: Adopted
+
+- Context:
+  `muselab-pblreports` を `paper/sigmus147` に subtree として取り込み、SIGMUS147予稿の執筆環境を構築する。テンプレートリポジトリにはB2/B3/B4など複数のテンプレートが含まれるが、本プロジェクトではIPSJ研究報告テンプレートのみを使用する。
+
+- Decision:
+  SIGMUS147では `muselab-pblreports` を基盤として利用するが、作業ディレクトリには使用しないテンプレートを残さない。
+
+- Consequences:
+  - `paper/sigmus147` はSIGMUS147執筆に必要なファイルのみを保持する。
+  - 不要なテンプレートやサンプルは削除し、ディレクトリ構成を簡潔に保つ。
+  - テンプレート更新時は `git subtree pull` を実行し、その後不要ファイルを再度整理する。
+  - テンプレートそのものの改善は `muselab-pblreports` 側へ反映する。

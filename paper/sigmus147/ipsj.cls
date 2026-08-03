@@ -8,7 +8,8 @@
 % [2011/08/22-11/25 Test.ver IPSJ class]
 % [2011/12/15-2012/04/24 v1.01-v1.02e IPSJ class]
 % [2012/06/01-2018/03/22 v1.03-v3.05 IPSJ class]
- [2018/08/03 v4.0 IPSJ class]
+% [2018/08/03 v4.0 IPSJ class]
+ [2025/02/05 v4.1 IPSJ class]
 
 
 
@@ -326,9 +327,9 @@
 %% Option
 %%
 \ExecuteOptions{a4paper,10pt,twoside,twocolumn,final,openright,DAM,Prooffalse}%!!
-\tracingmacros=1
+
 \ProcessOptions\relax
-\tracingmacros=0
+
 
 %% 
 \newdimen\h
@@ -1422,8 +1423,9 @@ Short Paper%
 
 
 % copyright
+% 2025/02/05 Fix: incorrect change of fontfamily. 
 \DeclareTextCommandDefault{\textcopyrighttx}{%
-{\fontfamily{txsy}\textcircled{%
+{\fontencoding{OMS}\fontfamily{txsy}\selectfont\textcircled{%
 \usefont{OT1}{ptm}{m}{n}\selectfont%
 c}}}
 
@@ -2089,13 +2091,14 @@ c}}}
 \newcounter{number} \c@number\z@
 \newcounter{month} \c@month\m@ne
 \newcounter{year} \c@year\m@ne
-				
 
+%%2025/02/05 Fix: aviod non-ascii ccounter names when not for Japanese.
+\ifDS@english\else
 \expandafter\let\csname c@巻数\endcsname\c@volume
 \expandafter\let\csname c@号数\endcsname\c@number
 \expandafter\let\csname c@月数\endcsname\c@month
 \expandafter\let\csname c@年数\endcsname\c@year
-
+\fi
 
 
 \AtBeginDocument{\label{ipsj@firstpage}}

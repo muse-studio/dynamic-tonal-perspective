@@ -1,0 +1,100 @@
+%%
+%% 研究報告用スイッチ
+%% [techrep]
+%%
+%% 欧文表記無しのスイッチ(etitle,eabstractは任意)
+%% [noauthor]
+%%
+
+%\documentclass[submit,techrep]{ipsj}
+\documentclass[submit,techrep,noauthor]{ipsj}
+
+
+
+\usepackage[dvips]{graphicx}
+\usepackage{latexsym}
+
+\usepackage{newtxtext,newtxmath} % txfonts のモダンな代替
+\usepackage[utf8]{inputenc} 	%波ダッシュ（〜）を表記できるようにする
+
+\usepackage{float}	%必要なら
+\usepackage{adjustbox}	%必要なら
+\usepackage{multirow}	%必要なら
+\usepackage[]{pdfpages}	%必要なら
+\usepackage{url} %必要なら
+\usepackage{fancyvrb}
+\renewcommand{\|}{\Verb|}
+\newcommand{\vbarSafe}{\texttt{|}}
+\newcommand{\maru}{\raise0.2ex\hbox{\textcircled{\scriptsize{ }}}}
+\newcommand{\nami}{$\sim$}
+
+% ------------------------------------------
+% ---- figure 環境で横に画像を並べる ------------------
+%	cf) https://atatat.hatenablog.com/entry/cloud_latex18_subcaption
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\captionsetup{compatibility=false}
+% ------------------------------------------
+
+% ---- 添削用 ----------------------
+\usepackage{muselab-correction} % 添削用のマクロを定義しているパッケージ
+% \usepackage[final]{muselab_correction} % 添削終了時は final オプションをつける
+%	このパッケージを使うと，添削用のコメントが出力される
+% ------------------------------------------
+
+%\setcounter{巻数}{59}%vol59=2018
+%\setcounter{号数}{10}
+%\setcounter{page}{1}
+
+
+\begin{document}
+
+
+\title{\input{credit/author-title}}
+
+% \etitle{How to Prepare Your Paper for IPSJ SIG Technical Report \\ (version 2018/10/29)}
+
+\affiliate{FUKU}{福知山公立大学情報学部\\
+	3370 Azahori, Fukuchiyama-shi, Kyoto 620--0886, Japan}
+\author{橋田 光代}{Mitsuyo Hashida}{FUKU}[hashida-mitsuyo@fukuchiyama.ac.jp] %SIGMUS/EC 予稿には入れる
+
+
+\begin{abstract}
+本デモでは，歌唱中に演奏者が内部で保持する「主観的調性感」の変化を体験できる一人合唱インタフェースを紹介する。同じ旋律をどの音高でも歌唱できる仕組みにより，固定的な調ではなく，歌唱者の内部で更新される調性感に着目する。参加者自身が歌唱し，リアルタイムに生成される合唱とのインタラクションを通して，動的な調性感の知覚と音楽体験について議論する。
+\end{abstract}
+
+
+%
+%\begin{jkeyword}
+%情報処理学会論文誌ジャーナル，\LaTeX，スタイルファイル，べからず集
+%\end{jkeyword}
+%
+%\begin{eabstract}
+%This document is a guide to prepare a draft for submitting to IPSJ
+%Journal, and the final camera-ready manuscript of a paper to appear in
+%IPSJ Journal, using {\LaTeX} and special style files.  Since this
+%document itself is produced with the style files, it will help you to
+%refer its source file which is distributed with the style files.
+%\end{eabstract}
+%
+%\begin{ekeyword}
+%IPSJ Journal, \LaTeX, style files, ``Dos and Dont's'' list
+%\end{ekeyword}
+
+\maketitle
+
+
+% ==========================================
+% 本文．
+% ==========================================
+\input{sigmus147-body}  % 本文は muselab-sample.tex に書く
+
+% ==========================================
+% 参考文献
+% ==========================================
+
+\bibliographystyle{ipsjunsrt} % SIGMUS/EC予稿の時は ipsjunsrt にする
+\bibliography{sigmus147} % .bibファイルの名前（Zoteroからエクスポートして作る）
+
+
+\end{document}
