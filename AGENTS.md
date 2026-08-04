@@ -47,6 +47,7 @@
 - LaTeX中間生成物をリポジトリへ含めない。
 - 個人情報、機微情報、巨大ファイルをGitへ追加しない。
 - 命名と用語は [docs/NAMING.md](docs/NAMING.md) に従う。
+- 文書スタイルは [docs/WRITING.md](docs/WRITING.md)に従う。
 - 設計判断は [docs/DECISIONS.md](docs/DECISIONS.md) に記録する。
 
 ## Worklog
