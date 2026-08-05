@@ -1,0 +1,22 @@
+% ==============================================
+% 年度・提出日・改訂日の設定
+% ==============================================
+\def\thesisyear{2025}
+\def\ipsj@year{2023-\thesisyear}
+% 卒論
+\def\submitdate{2026年1月30日}
+\def\revicedate{2026年2月6日}
+% PBL報告書（３年）
+\def\submitdaterep{2026年1月16日}
+\def\revicedaterep{2026年1月30日}
+% PBL報告書（１−２年）
+\def\submitdatepbl{2026年1月16日}
+\def\revicedatepbl{2026年2月16日}
+% ==============================================
+% 初回学部提出が済むまで改訂日を表示しない（１・２年生は1月のゼミ提出に相当）
+\newcommand{\showReviceDate}{}
+
+% 学部提出（1回目）で修正・差替指示が出たらこっちに切り替え
+% \newcommand{\showReviceDate}{\\ 改訂日 & \revicedate \\} % ４年生
+% \newcommand{\showReviceDate}{\\ 改訂日 & \revicedaterep \\} % ３年生 
+% \newcommand{\showReviceDate}{\\ 改訂日 & \revicedatepbl \\} % １・２年生 
