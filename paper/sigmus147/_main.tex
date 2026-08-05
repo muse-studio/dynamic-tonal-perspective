@@ -8,7 +8,7 @@
 
 %\documentclass[submit,techrep]{ipsj}
 \documentclass[submit,techrep,noauthor]{ipsj}
-
+\providecommand{\newblock}{\relax}
 
 
 \usepackage[dvipdfmx]{graphicx}
@@ -60,7 +60,10 @@
 
 
 \begin{abstract}
-本デモでは，歌唱中に演奏者が内部で保持する「主観的調性感」の変化を体験する一人合唱インタフェースを紹介する．本研究は，楽曲に固定的な調名を割り当てるのではなく，Subjective Tonicを基準とするRelative Tonal Frame（RTF）を主観的調性感の内部表現として扱う．参加者は任意の音高から旋律を歌唱し，RTFに基づいてリアルタイムに生成される合唱とのインタラクションを通して，動的な調性感と音楽体験について議論する．
+本デモでは，歌唱中に形成される主観的調性感を体験する一人合唱インタフェースを紹介する．
+Subjective Tonicを基準とするRelative Tonal Frame（RTF）を内部状態として導入し，
+歌唱者の調性感をリアルタイムに追跡する．
+参加者は任意の音高から旋律を歌唱し，RTFに基づいて生成される合唱を通して，動的な調性感を体験する．
 \end{abstract}
 
 
@@ -92,7 +95,6 @@
 % ==========================================
 % 参考文献
 % ==========================================
-
 \bibliographystyle{ipsjunsrt} % SIGMUS/EC予稿の時は ipsjunsrt にする
 \bibliography{sigmus147} % .bibファイルの名前（Zoteroからエクスポートして作る）
 
