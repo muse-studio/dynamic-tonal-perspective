@@ -42,7 +42,15 @@ Decisionの結果に従ってTonality Stateを更新します。更新はDecisio
 
 ### Harmony Generator
 
-pitchおよび調性に関する情報から、生成声部の音程または制御値を決定するモジュールです。現行では `VoiceManager.maxpat` 内の文字列参照を確認しています。詳細仕様は要確認です。
+pitchおよび調性に関する情報から、生成声部の音程または制御値を決定するモジュールです。`targetPitchMode`によりmanual MIDI targetとgenerated targetを切り替えます。generated target側にはBass Voice Leadingが統合されています。
+
+### Scale Degree / Cadential Evidence / Counterpoint Bass
+
+`ScaleDegreeInterpreterExtended_v2`はScale Degree Class、Extended Scale Degree、Diatonic Position、旋律のdiatonic step等を生成します。`CadentialMotionEvidence_Phase1f_v3`は終止的進行のtypeとstrengthを生成しますが、Relative Tonal Frameを更新しません。`CounterpointBassGenerator_Phase1g`はこれらを候補評価に使用してBass target degreeを生成します。
+
+### Bass Voice Leading / Bass Part State
+
+`BassVoiceLeading_Phase1h`はE2--E4の候補から`previousPitch`に最も近いregisterを選択します。履歴更新はこのoperatorではなく、`BassPartState_Phase1h`または`HarmonyGenerator`内の外部state loopが担当します。
 
 ### Voice Manager
 
@@ -63,17 +71,28 @@ DynamicTonalPerspective
 ├── PitchOperator
 └── VoiceManager
     ├── HarmonyGenerator
+    │   └── BassVoiceLeading_Phase1h
     └── VoiceGenerator
 ```
 
-`TonalityOperator` を含む完全な依存関係は要確認です。
+生成Bassの検証経路は次のとおりです。
+
+```text
+ScaleDegreeInterpreterExtended_v2
+→ CadentialMotionEvidence_Phase1f_v3
+→ CounterpointBassGenerator_Phase1g
+→ HarmonyGenerator_Phase1h
+→ BassVoiceLeading_Phase1h
+```
+
+`TonalityOperator`を含む完全な依存関係、およびメインパッチから生成Bass経路へのtarget degree／Frame Origin供給は要確認です。
 
 ## 区分
 
 ### 現在実装
 
-- 6個のMaxパッチが存在する。
-- 上記の文字列参照関係が確認できる。
+- Scale Degree InterpretationからBass Voice Leadingまでの実装と統合テストが存在する。
+- manual MIDI／generated targetの切替と、generated Bass targetのMIDI出力用テスト経路が存在する。
 
 ### 将来実装
 
@@ -83,7 +102,7 @@ DynamicTonalPerspective
 
 ### 未解決
 
-- 現行パッチのinlet / outletおよびメッセージ仕様
+- メインパッチ全体から生成Bass経路へのinlet接続
 - Tonality Operatorの統合位置
 - 状態の所有者、更新タイミング、初期化方法
 - Event MarkerとControl Eventの実装範囲

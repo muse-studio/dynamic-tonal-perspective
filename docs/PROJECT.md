@@ -40,7 +40,7 @@ operator-based modular architectureによるMaxプロトタイプの設計・実
 
 ## 現在実装
 
-リポジトリには、メインパッチ、Pitch Operator、Tonality Operator、Harmony Generator、Voice Generator、Voice Managerに相当する6個のMaxパッチがあります。文字列参照から、メインパッチによる `PitchOperator` と `VoiceManager` の利用、および `VoiceManager` による `VoiceGenerator` と `HarmonyGenerator` の利用を確認できます。各パッチの完全な実行時責務は要確認です。
+リポジトリには、メインパッチ、Pitch Operator、Tonality Operator、Harmony Generator、Voice Generator、Voice Managerに加え、Scale Degree Interpretation、Cadential Motion Evidence、Counterpoint Bass、Bass Voice Leading、Bass Part Stateの段階的なMax実装があります。Phase 1h統合テストではScale Degree Interpretationからgenerated BassのMIDI出力経路までを接続しています。メインパッチ全体での生成経路の入力配線と、各パッチの完全な実行時責務は要確認です。
 
 ## 将来実装
 

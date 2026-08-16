@@ -18,8 +18,13 @@ PitchOperator
       │
       ▼
 HarmonyGenerator
-      │
-voiceInterval
+      ├── manual MIDI target（targetPitchMode = 1）
+      └── generated target（targetPitchMode = 2）
+                │
+                ▼
+       Bass Voice Leading
+                │
+           voiceInterval
       │
       ▼
 VoiceManager (poly~)
@@ -30,6 +35,8 @@ VoiceGenerator × N
       ▼
 Output
 ```
+
+Scale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る生成経路は，`tests/max/CounterpointBassHarmonyIntegratedTest_Phase1h.maxpat` で統合されています。メインパッチ全体でのtarget degreeおよびFrame Originの供給経路は要確認です。
 
 ### Phase 2（構想・要検証）
 
@@ -57,12 +64,12 @@ VoiceGenerator
 
 ## リポジトリ構成
 
-- `max/`: Maxパッチ、abstraction、media、preset
+- `max/`: Max実装パッチ、abstraction、JavaScript、media、preset、実装履歴
 - `paper/`: 論文原稿
 - `docs/`: 研究概要、設計、開発規約、判断記録、worklog
 - `data/`: 原データ、加工済みデータ、再現確認用サンプル
 - `scripts/`: 補助スクリプト
-- `tests/`: 検証資材とテスト方針
+- `tests/`: Max統合テストを含む検証資材とテスト方針
 
 ## ブランチ運用
 

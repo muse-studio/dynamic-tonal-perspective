@@ -1,0 +1,3 @@
+VoiceGeneratorSmooth.maxpat: JSON OK; boxes=12; lines=9; dangling refs=0
+PieceAndLectureDemo.maxpat: JSON OK; boxes=125; lines=110; dangling refs=0
+current pitch -> voice inlet 2: [['d-bass-v', 2], ['d-tenor-v', 2], ['d-alto-v', 2], ['d-sop-v', 2]]

@@ -1,0 +1,36 @@
+Dynamic Tonal Perspective / Piece and Lecture Demo
+Static validation report
+Date: 2026-08-15
+
+Validated files
+- PieceAndLectureDemo.maxpat
+- PitchOperatorDemo.maxpat
+- VoiceGeneratorSmooth.maxpat
+- js/TonalityTrackerPhase1.js
+- js/DiatonicHarmonyGenerator.js
+
+Results
+- All .maxpat files parse as JSON: PASS
+- Object IDs are unique: PASS
+- All patchline source and destination IDs exist: PASS
+- All declared source outlet and destination inlet indices are in range: PASS
+- TonalityTrackerPhase1.js syntax check: PASS
+- DiatonicHarmonyGenerator.js syntax check: PASS
+- C-major choir target calculation: PASS
+  Targets at Lead C4 / Frame Origin C4:
+  Bass 47.95, Tenor 57.03, Alto 63.98, Soprano 67.06
+- Manual calibration, offset, reset, and newsession logic: PASS
+- Slow upward drift follow simulation: PASS
+- Vibrato rejection simulation: PASS
+- Diatonic melody stability simulation: PASS
+
+Not validated in this environment
+- Loading the patch in Max 9
+- Audio I/O and DSP execution
+- Availability of FluCoMa fluid.pitch~
+- pfft~ gizmo_loadme audio quality and latency
+- CPU load with four simultaneous pitch shifters
+- sfrecord~ recording
+
+Conclusion
+The bundle is structurally consistent and the JavaScript logic passes offline tests. A first Max runtime test is still required before rehearsal use.

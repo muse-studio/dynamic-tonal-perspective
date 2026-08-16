@@ -58,3 +58,19 @@
   - 不要なテンプレートやサンプルは削除し、ディレクトリ構成を簡潔に保つ。
   - テンプレート更新時は `git subtree pull` を実行し、その後不要ファイルを再度整理する。
   - テンプレートそのものの改善は `muselab-pblreports` 側へ反映する。
+
+## 007: Bass Voice LeadingとPart Stateの責務分離
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: Bassのregister選択と`previousPitch`履歴更新を同一operatorが担うと、状態更新の責務とイベント順序が不明確になる。
+- Decision: `BassVoiceLeading_Phase1h`は外部から受け取った`previousPitch`を参照して候補を評価するが、履歴を更新しない。履歴の保持と更新は`BassPartState_Phase1h`または統合先のstate loopが担う。
+- Consequences: target degreeを評価する前に保存済み`previousPitch`を供給し、選択後のtarget pitchを次イベント用に保存する必要がある。
+
+## 008: Harmony target pitchの入力モード
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: 従来のmanual MIDI target経路を保持しながら、生成Bass targetを段階的に統合する必要がある。
+- Decision: `targetPitchMode`の1をmanual MIDI、2をgenerated targetとして`HarmonyGenerator`内でpitchとloudnessを切り替える。
+- Consequences: 起動時のmode、generated targetの入力、manual経路への復帰をテスト時に明示する必要がある。

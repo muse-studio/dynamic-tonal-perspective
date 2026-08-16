@@ -7,10 +7,15 @@
 ### Added
 
 - プロジェクト共通文書と研究資材用ディレクトリの初期構成。
+- Scale Degree Class、Extended Scale Degree、Diatonic Positionを出力するScale Degree Interpreter。
+- Cadential Motion Evidenceと、その根拠を候補評価へ利用するCounterpoint Bass Generator。
+- E2--E4の音域候補から直前音に近いregisterを選ぶBass Voice Leadingと、外部`previousPitch`履歴を持つBass Part State。
+- manual MIDIとgenerated targetを切り替える`targetPitchMode`、およびPhase 1h統合テスト。
 
 ### Changed
 
-- なし。
+- Max JavaScript実装を`max/js/`、Maxテストパッチを`tests/max/`へ整理。
+- `HarmonyGenerator`へgenerated Bass targetのvoice-leading経路を追加。
 
 ### Fixed
 
