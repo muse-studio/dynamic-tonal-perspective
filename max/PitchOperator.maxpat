@@ -4,20 +4,32 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 690.0, 154.0, 583.0, 487.0 ],
+        "rect": [ 1217.0, 133.0, 583.0, 487.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-1",
+                    "linecount": 3,
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 29.0, 248.0, 83.0, 49.0 ],
+                    "text": "r pitchOperatorMode"
+                }
+            },
             {
                 "box": {
                     "id": "obj-3",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 66.5, 42.0, 38.0, 20.0 ],
+                    "patching_rect": [ 107.0, 34.0, 38.0, 20.0 ],
                     "text": "audio"
                 }
             },
@@ -27,7 +39,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 173.0, 42.0, 85.0, 20.0 ],
+                    "patching_rect": [ 213.0, 34.0, 85.0, 20.0 ],
                     "text": "wave amplifier"
                 }
             },
@@ -37,7 +49,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 206.0, 376.0, 66.0, 20.0 ],
+                    "patching_rect": [ 119.0, 362.0, 66.0, 20.0 ],
                     "text": "= pitchMidi"
                 }
             },
@@ -47,19 +59,20 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 116.0, 375.0, 83.0, 22.0 ],
+                    "patching_rect": [ 29.0, 361.0, 83.0, 22.0 ],
                     "text": "s PitchStream"
                 }
             },
             {
                 "box": {
                     "id": "obj-22",
+                    "int": 1,
                     "maxclass": "gswitch",
                     "numinlets": 3,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 116.0, 330.0, 41.0, 32.0 ]
+                    "patching_rect": [ 29.0, 316.0, 200.0, 36.0 ]
                 }
             },
             {
@@ -71,7 +84,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 170.0, 282.0, 50.0, 22.0 ]
+                    "patching_rect": [ 210.0, 274.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -82,7 +95,7 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "" ],
-                    "patching_rect": [ 170.0, 221.0, 156.0, 49.0 ],
+                    "patching_rect": [ 210.0, 213.0, 156.0, 49.0 ],
                     "text": "fluid.pitch~ @unit 1 @algorithm 2 @minfreq 80 @maxfreq 1200"
                 }
             },
@@ -93,7 +106,7 @@
                     "numinlets": 2,
                     "numoutlets": 2,
                     "outlettype": [ "signal", "bang" ],
-                    "patching_rect": [ 132.0, 89.0, 34.0, 22.0 ],
+                    "patching_rect": [ 172.0, 81.0, 34.0, 22.0 ],
                     "text": "line~"
                 }
             },
@@ -104,7 +117,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
-                    "patching_rect": [ 37.0, 121.0, 34.0, 22.0 ],
+                    "patching_rect": [ 77.0, 113.0, 34.0, 22.0 ],
                     "text": "*~ 1."
                 }
             },
@@ -117,7 +130,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 84.0, 283.0, 50.0, 22.0 ]
+                    "patching_rect": [ 124.0, 275.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -127,7 +140,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 84.0, 248.0, 45.0, 22.0 ],
+                    "patching_rect": [ 124.0, 240.0, 45.0, 22.0 ],
                     "text": "ftom 0."
                 }
             },
@@ -140,7 +153,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 84.0, 218.0, 50.0, 22.0 ]
+                    "patching_rect": [ 124.0, 210.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -150,7 +163,7 @@
                     "numinlets": 1,
                     "numoutlets": 3,
                     "outlettype": [ "float", "float", "" ],
-                    "patching_rect": [ 84.0, 154.0, 444.0, 22.0 ],
+                    "patching_rect": [ 124.0, 146.0, 444.0, 22.0 ],
                     "text": "fzero~ @freqmin 80 @freqmax 1200 @size 2048 @period 128 @onsetperiod 128"
                 }
             },
@@ -165,7 +178,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 37.0, 29.0, 30.0, 30.0 ]
+                    "patching_rect": [ 77.0, 21.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -177,15 +190,21 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 132.0, 29.0, 30.0, 30.0 ]
+                    "patching_rect": [ 172.0, 21.0, 30.0, 30.0 ]
                 }
             }
         ],
         "lines": [
             {
                 "patchline": {
+                    "destination": [ "obj-22", 0 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-15", 0 ],
-                    "midpoints": [ 46.5, 203.0, 179.5, 203.0 ],
+                    "midpoints": [ 86.5, 195.0, 219.5, 195.0 ],
                     "order": 0,
                     "source": [ "obj-11", 0 ]
                 }

@@ -9,8 +9,41 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 134.0, 181.0, 744.0, 275.0 ],
+        "rect": [ 164.0, 502.0, 744.0, 275.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 326.0, 52.0, 104.0, 22.0 ],
+                    "text": "r frameOriginMIDI"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-6",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 326.0, 80.0, 50.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 62.0, 60.0, 103.0, 20.0 ],
+                    "text": "interpretedPitch"
+                }
+            },
             {
                 "box": {
                     "id": "obj-9",
@@ -46,7 +79,7 @@
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "interpretedPitch",
                     "id": "lead",
                     "index": 0,
                     "maxclass": "inlet",
@@ -54,18 +87,6 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 30.0, 55.0, 30.0, 30.0 ]
-                }
-            },
-            {
-                "box": {
-                    "comment": "",
-                    "id": "origin",
-                    "index": 0,
-                    "maxclass": "inlet",
-                    "numinlets": 0,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 325.0, 55.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -289,7 +310,13 @@
             {
                 "patchline": {
                     "destination": [ "js", 1 ],
-                    "source": [ "origin", 0 ]
+                    "source": [ "obj-6", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 0 ],
+                    "source": [ "obj-7", 0 ]
                 }
             }
         ],

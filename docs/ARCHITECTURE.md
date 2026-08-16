@@ -3,7 +3,7 @@
 ## 処理構造
 
 ```text
-Observation → Feature Extraction → Evidence → Decision → State Update
+Observation → Feature Extraction（Pitch Interpretationを含む） → Evidence → Decision → State Update
 ```
 
 ### Observation
@@ -12,7 +12,7 @@ Observation → Feature Extraction → Evidence → Decision → State Update
 
 ### Feature Extraction
 
-観測からpitch、voice activity、イベント境界などの特徴を抽出します。現在の `PitchOperator.maxpat` がどこまでを担うかは要確認です。
+観測からpitch，voice activity，イベント境界などの特徴を抽出します．Pitch OperatorがObserved Pitchを生成し，Pitch InterpreterがInterpreted Pitchを生成します．Pitch Interpretationの局所履歴はInterpretation Stateであり，Tonality Stateとは分離します．
 
 ### Evidence
 
@@ -30,11 +30,15 @@ Decisionの結果に従ってTonality Stateを更新します。更新はDecisio
 
 ### DynamicTonalPerspectiveメインパッチ
 
-システムの起点です．`PitchOperator`，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`，`VoiceManager`を統合しています．Frame Originと生成されたBass target degreeは，それぞれ`frameOriginMIDI`と`bassTargetDegree`のsend／receive経由で下流へ渡します．
+システムの起点です．`PitchOperator`，`PitchInterpreter_Phase1`，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`，`VoiceManager`を統合しています．Frame Originと生成されたBass target degreeは，それぞれ`frameOriginMIDI`と`bassTargetDegree`のsend／receive経由で下流へ渡します．
 
 ### Pitch Operator
 
-歌唱入力からpitchに関する観測または特徴を得るモジュールです。ObservationとFeature Extractionの境界は要確認です。
+歌唱入力からObserved Pitchを得るモジュールです．現行パッチでは`fzero~`と`fluid.pitch~`を`pitchOperatorMode`で切り替え，`PitchStream`へ送出します．実マイク確認では`fluid.pitch~`が比較的安定して動作しましたが，方式間の定量比較は未実施です．
+
+### Pitch Interpreter
+
+`PitchInterpreter_Phase1`はObserved Pitchとpitch confidenceを受け取り，Interpreted Pitchを生成します．nearest MIDIの前後3候補を絶対音高誤差とintonation continuityで評価し，同じ遷移候補が`transitionHoldTime`以上継続した場合だけPitch Transitionを確定します．Phase 1ではRelative Tonal Frame，Scale Degree，Harmonyを使用しません．
 
 ### Tonality Operator
 
@@ -69,6 +73,8 @@ pitchおよび調性に関する情報から、生成声部の音程または制
 ```text
 DynamicTonalPerspective
 ├── PitchOperator
+├── PitchInterpreter_Phase1
+│   └── Interpreted Pitch
 ├── ScaleDegreeInterpreterExtended_v2
 ├── CadentialMotionEvidence_Phase1f_v3
 ├── CounterpointBassGenerator_Phase1g
@@ -93,6 +99,16 @@ ScaleDegreeInterpreterExtended_v2
 → BassVoiceLeading_Phase1h
 ```
 
+Pitch InterpretationからScale Degreeまでの入力方向は次のとおりです．
+
+```text
+PitchOperator
+→ Observed Pitch
+→ PitchInterpreter_Phase1
+→ Interpreted Pitch
+→ ScaleDegreeInterpreterExtended_v2
+```
+
 Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済みです．`TonalityOperator`を含む完全な依存関係は引き続き要確認です．
 
 ## 区分
@@ -103,15 +119,19 @@ Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済�
 - manual MIDI／generated targetの切替と、generated Bass targetのMIDI出力用テスト経路が存在する。
 - Phase 1eからPhase 1hまでのメインパッチ統合基本動作を確認済みである．
 - 非整数PitchStreamの同一degree内変動をCadential Motionとして誤検出しないことを確認済みである．
+- Observed PitchとInterpreted Pitchを分離し，Interpreted PitchをScale Degree Interpreterへ渡す経路が存在する．
+- Pitch Interpreter Phase 1のTemporal Stabilityをmanual入力と実マイク入力で確認済みである．
 
 ### 将来実装
 
 - 5層構造をモジュール境界として明示する。
 - Frame Maintenance / Adjustment / Reformation EvidenceをDecisionに集約する。
 - Updaterを通じてTonality Stateを更新する。
+- tonal contextをPitch Interpretation Evidenceとして使用するPhase 2を検討する．
 
 ### 未解決
 
 - Tonality Operatorの統合位置
 - 状態の所有者、更新タイミング、初期化方法
 - Event MarkerとControl Eventの実装範囲
+- Pitch Interpretationの有効Observation継続時間とNoteEventUpdate時間モデルの整合

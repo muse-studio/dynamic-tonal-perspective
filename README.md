@@ -16,6 +16,20 @@ Microphone
       ▼
 PitchOperator
       │
+ observedPitch
+      ▼
+PitchInterpreter_Phase1
+      │
+ interpretedPitch
+      ▼
+ScaleDegreeInterpreterExtended_v2
+      │
+      ▼
+CadentialMotionEvidence_Phase1f_v3
+      │
+      ▼
+CounterpointBassGenerator_Phase1g
+      │
       ▼
 HarmonyGenerator
       ├── manual MIDI target（targetPitchMode = 1）
@@ -35,6 +49,8 @@ VoiceGenerator × N
       ▼
 Output
 ```
+
+Pitch Interpreter Phase 1では，Observed PitchとInterpreted Pitchを分離し，絶対音高誤差と局所的なintonation continuity，Temporal StabilityからInterpreted Pitchを決定します．Relative Tonal Frame，Scale Degree，HarmonyはPitch Interpretationの判断材料に使用しません．
 
 Scale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る生成経路は，`DynamicTonalPerspective.maxpat`へ統合されています．`frameOriginMIDI`と`bassTargetDegree`はsend／receive経由で下流へ渡され，`VoiceManager → HarmonyGenerator → HarmonyGenerator_Phase1h → BassVoiceLeading_Phase1h`の基本動作をMax 9で確認済みです．
 

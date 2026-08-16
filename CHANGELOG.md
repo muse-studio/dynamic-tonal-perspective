@@ -11,6 +11,7 @@
 - Cadential Motion Evidenceと、その根拠を候補評価へ利用するCounterpoint Bass Generator。
 - E2--E4の音域候補から直前音に近いregisterを選ぶBass Voice Leadingと、外部`previousPitch`履歴を持つBass Part State。
 - manual MIDIとgenerated targetを切り替える`targetPitchMode`、およびPhase 1h統合テスト。
+- Observed PitchとInterpreted Pitchを分離し，絶対音高誤差，intonation continuity，Temporal Stabilityから解釈音高を選択する`PitchInterpreter_Phase1`．
 
 ### Changed
 
@@ -18,6 +19,7 @@
 - `HarmonyGenerator`へgenerated Bass targetのvoice-leading経路を追加。
 - Phase 1eからPhase 1hまでを`DynamicTonalPerspective`へ統合し，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡す構成へ更新．
 - Max Search PathのSubfolders検索に合わせ，Phase 1h主要パッチの`js` objectをJavaScriptのbasename指定へ更新．
+- `DynamicTonalPerspective`の経路を`PitchOperator → PitchInterpreter_Phase1 → ScaleDegreeInterpreterExtended_v2`へ更新．
 
 ### Fixed
 

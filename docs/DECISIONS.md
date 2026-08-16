@@ -90,3 +90,19 @@
 - Context: JavaScript実装は`max/js/`に配置されているが，`js js/Foo.js`というobject指定では正常にロードできなかった．
 - Decision: MaxのSearch Pathへ`max/`をSubfolders有効で登録し，`js` objectでは`js/Foo.js`ではなく`Foo.js`を指定する．
 - Consequences: 実行環境ごとにSearch Path設定が必要である．JavaScriptを移動または改名する場合は，Search Pathとobject指定の両方を確認する．
+
+## 011: Observed PitchとInterpreted Pitchの分離
+
+- Date: 2026-08-17
+- Status: Accepted
+- Context: 歌唱音高を単純にnearest MIDIへ量子化すると，局所的なintonationの傾向や歌唱者の遷移意図を保持できない場合がある．
+- Decision: Pitch Operatorの出力をObserved Pitchとし，`PitchInterpreter_Phase1`がInterpretation State，intonation continuity，Temporal StabilityからInterpreted Pitchを決定する．Scale Degree InterpreterにはObserved PitchではなくInterpreted Pitchを渡す．
+- Consequences: Phase 1のPitch InterpreterはRelative Tonal Frame，Scale Degree，Harmonyに依存しない．tonal contextを利用する解釈はPhase 2候補として別途設計する．
+
+## 012: Phase 1 Temporal Stabilityの時間評価
+
+- Date: 2026-08-17
+- Status: Accepted for Phase 1
+- Context: 瞬間的な候補変化だけでInterpreted Pitchを遷移させると，Pitch fluctuationによる不要なtransitionが発生する．
+- Decision: 同一のtransition candidateが継続し，Pitch更新イベント到着時に算出した経過時間が`transitionHoldTime`以上になった場合にtransitionを確定する．
+- Consequences: manual／MIDIテストでは同じPitch Observationをmetro等で継続送信する必要がある．将来はNoteEventUpdateの`previousUpdateAt`，`occurredAt`，`validDeltaTime`と整合する有効Observation継続時間の積算方式を検討する．

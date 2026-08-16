@@ -10,6 +10,7 @@ MaxのSearch Pathにはこの`max/`ディレクトリをSubfolders有効で登�
 
 - `DynamicTonalPerspective.maxpat`
 - `PitchOperator.maxpat`
+- `PitchInterpreter_Phase1.maxpat`
 - `TonalityOperator.maxpat`
 - `HarmonyGenerator.maxpat`
 - `VoiceGenerator.maxpat`
@@ -22,6 +23,15 @@ Phase 1hの生成Bass経路で使用する主なパッチ:
 - `CounterpointBassGenerator_Phase1g.maxpat`
 - `BassVoiceLeading_Phase1h.maxpat`
 - `BassPartState_Phase1h.maxpat`
+
+Pitch Interpreter Phase 1:
+
+- `PitchOperator.maxpat`が送出する値をObserved Pitchとして扱う．
+- `PitchInterpreter_Phase1.maxpat`がInterpreted Pitchを決定する．
+- `ScaleDegreeInterpreterExtended_v2.maxpat`にはraw Observed PitchではなくInterpreted Pitchを渡す．
+- Phase 1のPitch InterpretationはRelative Tonal Frame，Scale Degree，Harmonyを使用しない．
+
+実装と確認結果は[`history/2026-08-17-pitch-interpreter-phase1.md`](history/2026-08-17-pitch-interpreter-phase1.md)を参照してください．
 
 `DynamicTonalPerspective.maxpat`はScale Degree Interpretation，Cadential Motion Evidence，Counterpoint Bassを統合し，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡します．`HarmonyGenerator.maxpat`は`HarmonyGenerator_Phase1h`を介してBass Voice Leadingへ接続し，`targetPitchMode`の値によりmanual MIDI（1）とgenerated target（2）を切り替えます．Phase 1hの実装履歴と確認範囲は [`history/2026-08-16-bass-voice-leading-phase1h.md`](history/2026-08-16-bass-voice-leading-phase1h.md) を参照してください．
 

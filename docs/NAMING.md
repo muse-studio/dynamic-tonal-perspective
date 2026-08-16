@@ -15,6 +15,10 @@
 - Relative Tonal Frame
 - Tonality State
 - Pitch Observation
+- Observed Pitch
+- Interpreted Pitch
+- Pitch Interpreter
+- Interpretation State
 - Pitch Feature Extractor
 - Frame Maintenance Evidence
 - Frame Adjustment Evidence
