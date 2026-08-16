@@ -16,6 +16,8 @@
 
 - Max JavaScript実装を`max/js/`、Maxテストパッチを`tests/max/`へ整理。
 - `HarmonyGenerator`へgenerated Bass targetのvoice-leading経路を追加。
+- Phase 1eからPhase 1hまでを`DynamicTonalPerspective`へ統合し，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡す構成へ更新．
+- Max Search PathのSubfolders検索に合わせ，Phase 1h主要パッチの`js` objectをJavaScriptのbasename指定へ更新．
 
 ### Fixed
 

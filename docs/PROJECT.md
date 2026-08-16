@@ -40,7 +40,7 @@ operator-based modular architectureによるMaxプロトタイプの設計・実
 
 ## 現在実装
 
-リポジトリには、メインパッチ、Pitch Operator、Tonality Operator、Harmony Generator、Voice Generator、Voice Managerに加え、Scale Degree Interpretation、Cadential Motion Evidence、Counterpoint Bass、Bass Voice Leading、Bass Part Stateの段階的なMax実装があります。Phase 1h統合テストではScale Degree Interpretationからgenerated BassのMIDI出力経路までを接続しています。メインパッチ全体での生成経路の入力配線と、各パッチの完全な実行時責務は要確認です。
+リポジトリには，メインパッチ，Pitch Operator，Tonality Operator，Harmony Generator，Voice Generator，Voice Managerに加え，Scale Degree Interpretation，Cadential Motion Evidence，Counterpoint Bass，Bass Voice Leading，Bass Part Stateの段階的なMax実装があります．Phase 1eからPhase 1hまでの生成経路は`DynamicTonalPerspective.maxpat`へ統合され，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡す基本動作をMax 9で確認済みです．Counterpoint Bassが出力するBass MIDI pitchは暫定／診断用であり，正式なBass Target PitchはBass Voice Leadingが決定します．
 
 ## 将来実装
 

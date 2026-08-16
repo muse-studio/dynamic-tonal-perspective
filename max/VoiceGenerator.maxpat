@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 935.0, 221.0, 597.0, 701.0 ],
+        "rect": [ 489.0, 747.0, 335.0, 287.0 ],
         "boxes": [
             {
                 "box": {
@@ -17,8 +17,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 82.0, 219.0, 113.0, 20.0 ],
-                    "presentation_linecount": 2,
+                    "patching_rect": [ 82.0, 173.0, 113.0, 20.0 ],
                     "text": "audio (pitch shifted)"
                 }
             },
@@ -28,8 +27,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 230.0, 50.0, 79.0, 20.0 ],
-                    "presentation_linecount": 3,
+                    "patching_rect": [ 230.0, 98.0, 79.0, 20.0 ],
                     "text": "pitch interval"
                 }
             },
@@ -39,21 +37,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 82.0, 50.0, 38.0, 20.0 ],
+                    "patching_rect": [ 82.0, 98.0, 38.0, 20.0 ],
                     "text": "audio"
-                }
-            },
-            {
-                "box": {
-                    "fontname": "Lato",
-                    "fontsize": 13.0,
-                    "id": "obj-45",
-                    "maxclass": "newobj",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 196.0, 100.0, 63.0, 24.0 ],
-                    "text": "transratio"
                 }
             },
             {
@@ -66,7 +51,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
                     "patching_rect": [ 50.0, 131.0, 165.0, 23.0 ],
-                    "text": "pfft~ gizmo_loadme 4096 4"
+                    "text": "VoiceGeneratorSmooth"
                 }
             },
             {
@@ -78,7 +63,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 50.0, 40.0, 30.0, 30.0 ]
+                    "patching_rect": [ 50.0, 88.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -90,7 +75,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 196.0, 40.0, 30.0, 30.0 ]
+                    "patching_rect": [ 196.0, 88.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -101,7 +86,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 50.0, 214.0, 30.0, 30.0 ]
+                    "patching_rect": [ 50.0, 168.0, 30.0, 30.0 ]
                 }
             }
         ],
@@ -114,14 +99,8 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-45", 0 ],
-                    "source": [ "obj-13", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-56", 1 ],
-                    "source": [ "obj-45", 0 ]
+                    "source": [ "obj-13", 0 ]
                 }
             },
             {

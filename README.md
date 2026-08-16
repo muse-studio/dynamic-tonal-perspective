@@ -36,7 +36,7 @@ VoiceGenerator × N
 Output
 ```
 
-Scale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る生成経路は，`tests/max/CounterpointBassHarmonyIntegratedTest_Phase1h.maxpat` で統合されています。メインパッチ全体でのtarget degreeおよびFrame Originの供給経路は要確認です。
+Scale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る生成経路は，`DynamicTonalPerspective.maxpat`へ統合されています．`frameOriginMIDI`と`bassTargetDegree`はsend／receive経由で下流へ渡され，`VoiceManager → HarmonyGenerator → HarmonyGenerator_Phase1h → BassVoiceLeading_Phase1h`の基本動作をMax 9で確認済みです．
 
 ### Phase 2（構想・要検証）
 

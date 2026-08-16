@@ -2,7 +2,7 @@
 
 ## 開発環境
 
-- Cycling '74 Max（必要バージョンは要確認）
+- Cycling '74 Max 9
 - Git
 - 論文作業を行う場合はLaTeX環境（具体的なdistributionとバージョンは要確認）
 
@@ -10,7 +10,7 @@
 
 ## Maxでの基本的な開き方
 
-Maxから `max/DynamicTonalPerspective.maxpat` を開きます。関連パッチは同じ `max/` 内にあります。ファイルを移動する前に、Maxの検索パスと相対参照への影響を確認してください。
+Maxから `max/DynamicTonalPerspective.maxpat` を開きます．関連パッチは同じ `max/` 内にあります．MaxのSearch Pathへ`max/`を追加し，Subfoldersを有効にしてください．`max/js/`内のJavaScriptは，`js` objectでsubdirectoryを付けずにbasename（例：`js BassVoiceLeading_Phase1h_stateless.js`）を指定します．ファイルを移動する前に，Search Pathと参照への影響を確認してください．
 
 ## ブランチ運用
 
@@ -27,6 +27,7 @@ Maxから `max/DynamicTonalPerspective.maxpat` を開きます。関連パッチ
 ## 配置規則
 
 - Max abstraction: `max/abstractions/`。既存パッチと同階層でなければ解決できない参照は、移動前に確認する。
+- JavaScript: `max/js/`．Max objectではSearch Pathによるbasename解決を使用する．
 - media: `max/media/`。研究上必要な追跡対象と一時生成物を区別する。
 - preset: `max/presets/`。
 - 原データ: `data/raw/`。原則として変更しない。

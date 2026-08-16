@@ -74,3 +74,19 @@
 - Context: 従来のmanual MIDI target経路を保持しながら、生成Bass targetを段階的に統合する必要がある。
 - Decision: `targetPitchMode`の1をmanual MIDI、2をgenerated targetとして`HarmonyGenerator`内でpitchとloudnessを切り替える。
 - Consequences: 起動時のmode、generated targetの入力、manual経路への復帰をテスト時に明示する必要がある。
+
+## 009: 正式なBass Target Pitchの決定責務
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: `CounterpointBassGenerator_Phase1g`はBass degreeとBass MIDI pitchを出力するが，Phase 1hではregisterと`previousPitch`履歴を考慮した実音高決定を後段で行う．
+- Decision: `CounterpointBassGenerator_Phase1g`のBass MIDI出力は旧来の暫定／診断用出力として扱う．正式なBass Target Pitchは`BassVoiceLeading_Phase1h`が決定する．
+- Consequences: 下流の発音処理はCounterpoint BassのMIDI pitchではなく，Bass Voice Leadingのtarget pitchを使用する．
+
+## 010: Max Search PathとJavaScript object指定
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: JavaScript実装は`max/js/`に配置されているが，`js js/Foo.js`というobject指定では正常にロードできなかった．
+- Decision: MaxのSearch Pathへ`max/`をSubfolders有効で登録し，`js` objectでは`js/Foo.js`ではなく`Foo.js`を指定する．
+- Consequences: 実行環境ごとにSearch Path設定が必要である．JavaScriptを移動または改名する場合は，Search Pathとobject指定の両方を確認する．

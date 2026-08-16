@@ -9,15 +9,37 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 84.0, 131.0, 900.0, 285.0 ],
+        "rect": [ 866.0, 259.0, 545.0, 285.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-2",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 138.33333333333331, 87.0, 104.0, 22.0 ],
+                    "text": "r frameOriginMIDI"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-1",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 355.0, 87.0, 85.0, 22.0 ],
+                    "text": "r reset_history"
+                }
+            },
             {
                 "box": {
                     "id": "title",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 10.0, 920.0, 20.0 ],
+                    "patching_rect": [ 20.0, 10.0, 485.0, 20.0 ],
                     "text": "Bass Voice Leading / Phase 1h — Register candidates + E2-E4 filter + nearest movement"
                 }
             },
@@ -36,37 +58,13 @@
             {
                 "box": {
                     "comment": "",
-                    "id": "origin",
-                    "index": 0,
-                    "maxclass": "inlet",
-                    "numinlets": 0,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 190.0, 55.0, 30.0, 30.0 ]
-                }
-            },
-            {
-                "box": {
-                    "comment": "",
                     "id": "prev",
                     "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 350.0, 55.0, 30.0, 30.0 ]
-                }
-            },
-            {
-                "box": {
-                    "comment": "",
-                    "id": "reset",
-                    "index": 0,
-                    "maxclass": "inlet",
-                    "numinlets": 0,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 510.0, 55.0, 30.0, 30.0 ]
+                    "patching_rect": [ 246.66666666666663, 55.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -75,18 +73,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 15.0, 88.0, 130.0, 20.0 ],
+                    "patching_rect": [ 15.0, 88.0, 102.0, 20.0 ],
                     "text": "targetDegree 1..7"
-                }
-            },
-            {
-                "box": {
-                    "id": "ol",
-                    "maxclass": "comment",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 160.0, 88.0, 150.0, 20.0 ],
-                    "text": "frameOriginPitch"
                 }
             },
             {
@@ -95,18 +83,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 315.0, 88.0, 180.0, 20.0 ],
+                    "patching_rect": [ 278.66666666666663, 60.0, 137.0, 20.0 ],
                     "text": "Part State.previousPitch"
-                }
-            },
-            {
-                "box": {
-                    "id": "rl",
-                    "maxclass": "comment",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 495.0, 88.0, 100.0, 20.0 ],
-                    "text": "reset"
                 }
             },
             {
@@ -116,12 +94,12 @@
                     "numinlets": 4,
                     "numoutlets": 5,
                     "outlettype": [ "", "", "", "", "" ],
-                    "patching_rect": [ 30.0, 130.0, 239.0, 22.0 ],
+                    "patching_rect": [ 30.0, 130.0, 344.0, 22.0 ],
                     "saved_object_attributes": {
                         "filename": "BassVoiceLeading_Phase1h_stateless.js",
                         "parameter_enable": 0
                     },
-                    "text": "js js/BassVoiceLeading_Phase1h_stateless.js"
+                    "text": "js BassVoiceLeading_Phase1h_stateless.js"
                 }
             },
             {
@@ -132,7 +110,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 30.0, 195.0, 30.0, 30.0 ]
+                    "patching_rect": [ 28.0, 195.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -141,7 +119,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 25.0, 232.0, 150.0, 20.0 ],
+                    "patching_rect": [ 25.0, 232.0, 66.0, 20.0 ],
                     "text": "targetPitch"
                 }
             },
@@ -153,7 +131,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 170.0, 195.0, 30.0, 30.0 ]
+                    "patching_rect": [ 102.0, 195.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -162,7 +140,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 165.0, 232.0, 150.0, 20.0 ],
+                    "patching_rect": [ 99.0, 232.0, 65.0, 20.0 ],
                     "text": "movement"
                 }
             },
@@ -174,7 +152,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 310.0, 195.0, 30.0, 30.0 ]
+                    "patching_rect": [ 176.0, 195.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -183,7 +161,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 305.0, 232.0, 150.0, 20.0 ],
+                    "patching_rect": [ 173.0, 232.0, 55.0, 20.0 ],
                     "text": "VL score"
                 }
             },
@@ -195,7 +173,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 450.0, 195.0, 30.0, 30.0 ]
+                    "patching_rect": [ 249.0, 195.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -204,7 +182,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 445.0, 232.0, 150.0, 20.0 ],
+                    "patching_rect": [ 247.0, 232.0, 95.0, 20.0 ],
                     "text": "valid candidates"
                 }
             },
@@ -216,7 +194,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 650.0, 195.0, 30.0, 30.0 ]
+                    "patching_rect": [ 355.0, 195.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -225,7 +203,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 645.0, 232.0, 150.0, 20.0 ],
+                    "patching_rect": [ 352.0, 232.0, 92.0, 20.0 ],
                     "text": "selected octave"
                 }
             }
@@ -269,20 +247,20 @@
             },
             {
                 "patchline": {
+                    "destination": [ "js", 3 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "js", 1 ],
-                    "source": [ "origin", 0 ]
+                    "source": [ "obj-2", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "js", 2 ],
                     "source": [ "prev", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "js", 3 ],
-                    "source": [ "reset", 0 ]
                 }
             }
         ],

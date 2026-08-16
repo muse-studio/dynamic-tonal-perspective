@@ -30,7 +30,7 @@ Decisionの結果に従ってTonality Stateを更新します。更新はDecisio
 
 ### DynamicTonalPerspectiveメインパッチ
 
-システムの起点です。現行パッチの文字列参照では `PitchOperator` と `VoiceManager` を利用しています。全体の信号・メッセージ経路は要確認です。
+システムの起点です．`PitchOperator`，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`，`VoiceManager`を統合しています．Frame Originと生成されたBass target degreeは，それぞれ`frameOriginMIDI`と`bassTargetDegree`のsend／receive経由で下流へ渡します．
 
 ### Pitch Operator
 
@@ -50,7 +50,7 @@ pitchおよび調性に関する情報から、生成声部の音程または制
 
 ### Bass Voice Leading / Bass Part State
 
-`BassVoiceLeading_Phase1h`はE2--E4の候補から`previousPitch`に最も近いregisterを選択します。履歴更新はこのoperatorではなく、`BassPartState_Phase1h`または`HarmonyGenerator`内の外部state loopが担当します。
+`BassVoiceLeading_Phase1h`はE2--E4の候補から`previousPitch`に最も近いregisterを選択します．履歴更新はこのoperatorではなく，`BassPartState_Phase1h`または`HarmonyGenerator_Phase1h`内の外部state loopが担当します．Counterpoint BassのBass MIDI出力は暫定／診断用であり，正式なBass Target Pitchの決定はBass Voice Leadingの責務です．
 
 ### Voice Manager
 
@@ -69,9 +69,17 @@ pitchおよび調性に関する情報から、生成声部の音程または制
 ```text
 DynamicTonalPerspective
 ├── PitchOperator
+├── ScaleDegreeInterpreterExtended_v2
+├── CadentialMotionEvidence_Phase1f_v3
+├── CounterpointBassGenerator_Phase1g
+│   └── s bassTargetDegree
+├── s frameOriginMIDI
 └── VoiceManager
+    ├── r bassTargetDegree
     ├── HarmonyGenerator
-    │   └── BassVoiceLeading_Phase1h
+    │   └── HarmonyGenerator_Phase1h
+    │       └── BassVoiceLeading_Phase1h
+    │           └── r frameOriginMIDI
     └── VoiceGenerator
 ```
 
@@ -85,7 +93,7 @@ ScaleDegreeInterpreterExtended_v2
 → BassVoiceLeading_Phase1h
 ```
 
-`TonalityOperator`を含む完全な依存関係、およびメインパッチから生成Bass経路へのtarget degree／Frame Origin供給は要確認です。
+Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済みです．`TonalityOperator`を含む完全な依存関係は引き続き要確認です．
 
 ## 区分
 
@@ -93,6 +101,8 @@ ScaleDegreeInterpreterExtended_v2
 
 - Scale Degree InterpretationからBass Voice Leadingまでの実装と統合テストが存在する。
 - manual MIDI／generated targetの切替と、generated Bass targetのMIDI出力用テスト経路が存在する。
+- Phase 1eからPhase 1hまでのメインパッチ統合基本動作を確認済みである．
+- 非整数PitchStreamの同一degree内変動をCadential Motionとして誤検出しないことを確認済みである．
 
 ### 将来実装
 
@@ -102,7 +112,6 @@ ScaleDegreeInterpreterExtended_v2
 
 ### 未解決
 
-- メインパッチ全体から生成Bass経路へのinlet接続
 - Tonality Operatorの統合位置
 - 状態の所有者、更新タイミング、初期化方法
 - Event MarkerとControl Eventの実装範囲
