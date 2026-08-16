@@ -29,6 +29,5 @@ temp/
 *.asd
 *.peak
 *.tmp
-max/dynamic_tonal_perspective_piece_and_lecture_demo_2026-08-15_fix1.zip
-max/dynamic_tonal_perspective_piece_and_lecture_demo_2026-08-15_fix2.zip
-max/dynamic_tonal_perspective_piece_and_lecture_demo_2026-08-15.zip
+max/*_demo_*.zip
+max/Presentation_preview.png
