@@ -4,13 +4,47 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
         "rect": [ 49.0, 94.0, 722.0, 557.0 ],
         "boxes": [
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-12",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 90.0, 413.0, 136.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 34.0, 413.0, 34.0, 22.0 ],
+                    "text": "*~ 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 39.0, 50.0, 35.0, 22.0 ],
+                    "text": "open"
+                }
+            },
             {
                 "box": {
                     "id": "obj-113",
@@ -54,7 +88,7 @@
                     "orientation": 1,
                     "outlettype": [ "signal", "", "float", "list" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 34.0, 401.0, 136.0, 30.0 ],
+                    "patching_rect": [ 34.0, 456.0, 136.0, 30.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "live.gain~[2]",
@@ -122,7 +156,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 421.0, 80.0, 212.0, 20.0 ],
-                    "presentation_linecount": 2,
                     "text": "本人申告の音高（主音とは限らない）"
                 }
             },
@@ -270,14 +303,13 @@
             {
                 "box": {
                     "id": "obj-21",
-                    "linecount": 4,
+                    "linecount": 5,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 181.0, 81.0, 210.0, 62.0 ],
-                    "presentation_linecount": 5,
-                    "text": ";\rmidi port \"Xkey Air 37 BLE Bluetooth\";\rvoicePart 0;\rsubjectiveBasePitch 60"
+                    "patching_rect": [ 181.0, 81.0, 210.0, 76.0 ],
+                    "text": ";\rmidi port \"Xkey Air 37 BLE Bluetooth\";\rvoicePart 0;\rsubjectiveBasePitch 60;\rtargetPitchMode 2"
                 }
             },
             {
@@ -329,7 +361,7 @@
                     "maxclass": "ezdac~",
                     "numinlets": 2,
                     "numoutlets": 0,
-                    "patching_rect": [ 35.0, 466.0, 45.0, 45.0 ]
+                    "patching_rect": [ 35.0, 495.0, 45.0, 45.0 ]
                 }
             },
             {
@@ -461,6 +493,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-7", 1 ],
+                    "source": [ "obj-12", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-18", 1 ],
                     "source": [ "obj-13", 0 ]
                 }
@@ -574,8 +612,20 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-72", 0 ],
+                    "destination": [ "obj-2", 0 ],
+                    "source": [ "obj-6", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-7", 0 ],
                     "source": [ "obj-62", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-72", 0 ],
+                    "source": [ "obj-7", 0 ]
                 }
             },
             {
@@ -622,6 +672,14 @@
             "obj-4": [ "live.gain~", "live.gain~", 0 ],
             "obj-72": [ "live.gain~[2]", "live.gain~", 0 ],
             "obj-8": [ "radiogroup", "radiogroup", 0 ],
+            "parameterbanks": {
+                "0": {
+                    "index": 0,
+                    "name": "",
+                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
+                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
+                }
+            },
             "inherited_shortname": 1
         },
         "autosave": 0

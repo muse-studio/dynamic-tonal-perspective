@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 935.0, 563.0, 412.0, 299.0 ],
+        "rect": [ 49.0, 654.0, 386.0, 299.0 ],
         "boxes": [
             {
                 "box": {
@@ -102,10 +102,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 38.0, 237.0, 45.0, 23.0 ],
-                    "saved_object_attributes": {
-                        "attr_comment": "",
-                        "c": ""
-                    },
                     "text": "out~ 1"
                 }
             },
@@ -139,6 +135,10 @@
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
                     "patching_rect": [ 38.0, 71.0, 35.0, 22.0 ],
+                    "saved_object_attributes": {
+                        "attr_comment": "",
+                        "c": ""
+                    },
                     "text": "in~ 1"
                 }
             }
