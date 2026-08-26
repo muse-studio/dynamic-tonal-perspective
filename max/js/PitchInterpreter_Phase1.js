@@ -1,6 +1,6 @@
 autowatch = 1;
 
-inlets = 7;
+inlets = 8;
 outlets = 8;
 
 // Parameters
@@ -10,6 +10,7 @@ var transitionHoldTime = 80.0;
 var minimumInterpretationConfidence = 0.0;
 
 // State
+var initialInterpretedPitch = null;
 var referenceObservedPitch = null;
 var previousInterpretedPitch = null;
 var referenceIntonationDeviation = null;
@@ -67,6 +68,8 @@ function msg_float(v) {
         case 6:
             minimumInterpretationConfidence = v;
             break;
+        case 7:
+            initialInterpretedPitch = v;
     }
 }
 
@@ -103,7 +106,9 @@ function processObservedPitch(observedPitch) {
     // First valid pitch
     if (previousInterpretedPitch === null) {
 
-        previousInterpretedPitch = nearestMidi;
+        previousInterpretedPitch = initialInterpretedPitch !== null
+            ? initialInterpretedPitch
+            : nearestMidi;
         referenceObservedPitch = observedPitch;
         referenceIntonationDeviation =
             observedPitch - previousInterpretedPitch;
