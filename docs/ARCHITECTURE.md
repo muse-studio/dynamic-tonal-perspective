@@ -30,15 +30,19 @@ Decisionの結果に従ってTonality Stateを更新します。更新はDecisio
 
 ### DynamicTonalPerspectiveメインパッチ
 
-システムの起点です．`PitchOperator`，`PitchInterpreter_Phase1`，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`，`VoiceManager`を統合しています．Frame Originと生成されたBass target degreeは，それぞれ`frameOriginMIDI`と`bassTargetDegree`のsend／receive経由で下流へ渡します．
+システムの起点です．`PitchOperator`，`PitchInterpreter_Phase1`，`InitialFrameInterpreter_Phase1.js`，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`，`VoiceManager`を統合しています．初回のInterpreted Pitchと申告Scale Degreeから得たFrame Originと，生成されたBass target degreeは，それぞれ`frameOriginMIDI`と`bassTargetDegree`のsend／receive経由で下流へ渡します．
 
 ### Pitch Operator
 
-歌唱入力からObserved Pitchを得るモジュールです．現行パッチでは`fzero~`と`fluid.pitch~`を`pitchOperatorMode`で切り替え，`PitchStream`へ送出します．実マイク確認では`fluid.pitch~`が比較的安定して動作しましたが，方式間の定量比較は未実施です．
+歌唱入力からObserved Pitchを得るモジュールです．現行パッチでは`fzero~`と`fluid.pitch~`を`pitchOperatorMode`で切り替え，`PitchStream`へ送出します．`fluid.pitch~`側は`meter~`の出力と外部から与える音量閾値によってpitch出力をゲートします．メインパッチでは`filtergraph~`と`biquad~`を入力の前処理に使用します．これらの新規経路の実機動作と閾値の妥当性は要検証です．
 
 ### Pitch Interpreter
 
 `PitchInterpreter_Phase1`はObserved Pitchとpitch confidenceを受け取り，Interpreted Pitchを生成します．nearest MIDIの前後3候補を絶対音高誤差とintonation continuityで評価し，同じ遷移候補が`transitionHoldTime`以上継続した場合だけPitch Transitionを確定します．Phase 1ではRelative Tonal Frame，Scale Degree，Harmonyを使用しません．
+
+### Initial Frame Interpreter
+
+`InitialFrameInterpreter_Phase1.js`は，初回に取得したInterpreted Pitchと歌い始めの音に対して申告されたScale Degree（1--7）から，diatonic major scaleのsemitone offsetを差し引いて`frameOriginMIDI`を生成します．Phase 1ではrelative interpretationのみを扱い，absolute interpretationと`octaveOffset`は未実装です．
 
 ### Tonality Operator
 
@@ -75,11 +79,12 @@ DynamicTonalPerspective
 ├── PitchOperator
 ├── PitchInterpreter_Phase1
 │   └── Interpreted Pitch
+├── InitialFrameInterpreter_Phase1.js
+│   └── s frameOriginMIDI
 ├── ScaleDegreeInterpreterExtended_v2
 ├── CadentialMotionEvidence_Phase1f_v3
 ├── CounterpointBassGenerator_Phase1g
 │   └── s bassTargetDegree
-├── s frameOriginMIDI
 └── VoiceManager
     ├── r bassTargetDegree
     ├── HarmonyGenerator
@@ -121,6 +126,7 @@ Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済�
 - 非整数PitchStreamの同一degree内変動をCadential Motionとして誤検出しないことを確認済みである．
 - Observed PitchとInterpreted Pitchを分離し，Interpreted PitchをScale Degree Interpreterへ渡す経路が存在する．
 - Pitch Interpreter Phase 1のTemporal Stabilityをmanual入力と実マイク入力で確認済みである．
+- 初回Interpreted Pitchと申告Scale DegreeからRelative Tonal Frameを初期化するPhase 1経路が存在する．
 
 ### 将来実装
 
@@ -135,3 +141,4 @@ Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済�
 - 状態の所有者、更新タイミング、初期化方法
 - Event MarkerとControl Eventの実装範囲
 - Pitch Interpretationの有効Observation継続時間とNoteEventUpdate時間モデルの整合
+- Initial Frame Interpreterの実機動作，absolute interpretation，`octaveOffset`の扱い

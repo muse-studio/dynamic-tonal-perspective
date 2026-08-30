@@ -106,3 +106,11 @@
 - Context: 瞬間的な候補変化だけでInterpreted Pitchを遷移させると，Pitch fluctuationによる不要なtransitionが発生する．
 - Decision: 同一のtransition candidateが継続し，Pitch更新イベント到着時に算出した経過時間が`transitionHoldTime`以上になった場合にtransitionを確定する．
 - Consequences: manual／MIDIテストでは同じPitch Observationをmetro等で継続送信する必要がある．将来はNoteEventUpdateの`previousUpdateAt`，`occurredAt`，`validDeltaTime`と整合する有効Observation継続時間の積算方式を検討する．
+
+## 013: Relative Tonal FrameのPhase 1初期化
+
+- Date: 2026-08-31
+- Status: Accepted for Phase 1
+- Context: 歌い始めのInterpreted Pitchが主音とは限らないため，初期Frame Originの決定には歌い手が意図するScale Degreeが必要となる．
+- Decision: 初回のInterpreted Pitchと申告Scale Degree（1--7）から，diatonic major scaleのsemitone offsetを差し引いて`frameOriginMIDI`を生成する．初回Pitchの取得は1回でゲートを閉じる．
+- Consequences: Phase 1はrelative interpretationのみを対象とし，absolute interpretationと`octaveOffset`は将来実装とする．再初期化時は`initialPitchGate`と関連stateのreset手順を明示する必要がある．

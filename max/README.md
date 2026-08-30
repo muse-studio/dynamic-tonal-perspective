@@ -31,7 +31,14 @@ Pitch Interpreter Phase 1:
 - `ScaleDegreeInterpreterExtended_v2.maxpat`にはraw Observed PitchではなくInterpreted Pitchを渡す．
 - Phase 1のPitch InterpretationはRelative Tonal Frame，Scale Degree，Harmonyを使用しない．
 
+Initial Frame Interpreter Phase 1:
+
+- `InitialFrameInterpreter_Phase1.js`は初回Interpreted Pitchと申告Scale Degree（1--7）から`frameOriginMIDI`を生成する．
+- Phase 1はrelative interpretationとdiatonic major scaleを前提とし，absolute interpretationと`octaveOffset`は扱わない．
+- 初回Interpreted Pitchは`initialPitchGate`で1回だけ`initialInterpretedPitch`へ送る．
+
 実装と確認結果は[`history/2026-08-17-pitch-interpreter-phase1.md`](history/2026-08-17-pitch-interpreter-phase1.md)を参照してください．
+初期Frame生成経路の実装と静的検証結果は[`history/2026-08-31-initial-frame-interpreter-phase1.md`](history/2026-08-31-initial-frame-interpreter-phase1.md)を参照してください．
 
 `DynamicTonalPerspective.maxpat`はScale Degree Interpretation，Cadential Motion Evidence，Counterpoint Bassを統合し，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡します．`HarmonyGenerator.maxpat`は`HarmonyGenerator_Phase1h`を介してBass Voice Leadingへ接続し，`targetPitchMode`の値によりmanual MIDI（1）とgenerated target（2）を切り替えます．Phase 1hの実装履歴と確認範囲は [`history/2026-08-16-bass-voice-leading-phase1h.md`](history/2026-08-16-bass-voice-leading-phase1h.md) を参照してください．
 
