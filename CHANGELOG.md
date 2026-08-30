@@ -14,6 +14,8 @@
 - Observed PitchとInterpreted Pitchを分離し，絶対音高誤差，intonation continuity，Temporal Stabilityから解釈音高を選択する`PitchInterpreter_Phase1`．
 - 初回のInterpreted Pitchと申告されたScale DegreeからRelative Tonal Frameの`frameOriginMIDI`を求める`InitialFrameInterpreter_Phase1.js`．
 - Dynamic Tonal Perspectiveと一人合唱インタフェースを紹介する研究発表スライド`mus147-DTP-hashida.pptx`．
+- Leadのdiatonic 3rd下／6th下に2つの内声targetを生成し，既存Bass経路と合成するPhase 1iデモパッチ群．
+- voice orderとharmony tableの比較用`InnerVoiceTargets_Phase1i`試作JavaScript 3件．
 
 ### Changed
 
@@ -24,6 +26,7 @@
 - `DynamicTonalPerspective`の経路を`PitchOperator → PitchInterpreter_Phase1 → ScaleDegreeInterpreterExtended_v2`へ更新．
 - `DynamicTonalPerspective`に初回Interpreted Pitchの1回限り取得，申告Scale Degreeの入力，Relative Tonal Frameの初期化経路を追加．
 - マイク入力に`filtergraph~`／`biquad~`の前処理を追加し，`fluid.pitch~`の出力を音量閾値でゲートするよう`PitchOperator`を更新．
+- Phase 1iメインパッチでScale Degree Classを`leadScaleDegreeClass`として`VoiceManager_Phase1i`へ渡す経路を追加．
 
 ### Fixed
 

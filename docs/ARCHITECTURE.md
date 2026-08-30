@@ -60,6 +60,10 @@ pitchおよび調性に関する情報から、生成声部の音程または制
 
 `BassVoiceLeading_Phase1h`はE2--E4の候補から`previousPitch`に最も近いregisterを選択します．履歴更新はこのoperatorではなく，`BassPartState_Phase1h`または`HarmonyGenerator_Phase1h`内の外部state loopが担当します．Counterpoint BassのBass MIDI出力は暫定／診断用であり，正式なBass Target Pitchの決定はBass Voice Leadingの責務です．
 
+### Inner Voice Targets Phase 1i
+
+`InnerVoiceTargets_Phase1i_diatonic36.js`は，LeadのScale Degree Class，`frameOriginMIDI`，Lead pitchから，Leadのdiatonic 3rd下と6th下の2声を生成します．`VoiceManager_Phase1i.maxpat`はこれらのtargetと現在pitchとの差を2つの`VoiceGenerator`へ渡し，既存のPhase 1h Bass経路と合成します．現行実装はmajor Relative Tonal Frameを前提とするデモ用であり，独立したEvidence／Decisionは実装していません．
+
 ### Voice Manager
 
 複数のVoice Generatorを管理し、声部生成を割り当てるモジュールです。メインパッチから利用され、`VoiceGenerator` と `HarmonyGenerator` を参照しています。
@@ -142,3 +146,5 @@ Phase 1eからPhase 1hまでの上記経路はMax 9で基本動作を確認済�
 - Event MarkerとControl Eventの実装範囲
 - Pitch Interpretationの有効Observation継続時間とNoteEventUpdate時間モデルの整合
 - Initial Frame Interpreterの実機動作，absolute interpretation，`octaveOffset`の扱い
+- Phase 1i内声の和声規則，register，voice leadingの評価
+- 150 ms voice-activity gateの`PitchInterpreter_Phase1`入力への接続

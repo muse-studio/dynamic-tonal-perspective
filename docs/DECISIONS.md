@@ -114,3 +114,11 @@
 - Context: 歌い始めのInterpreted Pitchが主音とは限らないため，初期Frame Originの決定には歌い手が意図するScale Degreeが必要となる．
 - Decision: 初回のInterpreted Pitchと申告Scale Degree（1--7）から，diatonic major scaleのsemitone offsetを差し引いて`frameOriginMIDI`を生成する．初回Pitchの取得は1回でゲートを閉じる．
 - Consequences: Phase 1はrelative interpretationのみを対象とし，absolute interpretationと`octaveOffset`は将来実装とする．再初期化時は`initialPitchGate`と関連stateのreset手順を明示する必要がある．
+
+## 014: Phase 1iデモの内声生成
+
+- Date: 2026-08-31
+- Status: Provisional for Phase 1i
+- Context: 一人合唱デモで既存Bassに加えて2つの内声を発音する必要があるが，内声用のEvidence／Decision設計は未確定である．
+- Decision: デモ用Phase 1iでは，major Relative Tonal Frame上でLeadのdiatonic 3rd下と6th下を内声targetとする．Bassは既存のCounterpoint／Bass Voice Leading経路を維持する．
+- Consequences: 内声規則はprovisionalと明示し，研究上の一般的な和声決定とは扱わない．voice crossing，register，voice leading，Lead pitch入力の定義は実機と設計の両面で要検証である．

@@ -24,6 +24,14 @@ Phase 1hの生成Bass経路で使用する主なパッチ:
 - `BassVoiceLeading_Phase1h.maxpat`
 - `BassPartState_Phase1h.maxpat`
 
+Phase 1iのデモ用内声経路:
+
+- `DynamicTonalPerspective_Phase1i.maxpat`
+- `VoiceManager_Phase1i.maxpat`
+- `js/InnerVoiceTargets_Phase1i_diatonic36.js`
+
+`DynamicTonalPerspective_Phase1i_150ms.maxpat`と`DynamicTonalPerspective_Phase1i_150ms_initfix.maxpat`は段階的な試作variantです．`DynamicTonalPerspective_Phase1j_150ms.maxpat`は150 ms voice-activity gateを既存`VoiceManager`経路で確認する分離variantです．現時点で`pitchInputGate`の受信側は未接続であり，完成機能とは扱いません．
+
 Pitch Interpreter Phase 1:
 
 - `PitchOperator.maxpat`が送出する値をObserved Pitchとして扱う．
@@ -39,6 +47,7 @@ Initial Frame Interpreter Phase 1:
 
 実装と確認結果は[`history/2026-08-17-pitch-interpreter-phase1.md`](history/2026-08-17-pitch-interpreter-phase1.md)を参照してください．
 初期Frame生成経路の実装と静的検証結果は[`history/2026-08-31-initial-frame-interpreter-phase1.md`](history/2026-08-31-initial-frame-interpreter-phase1.md)を参照してください．
+Phase 1i内声デモと試作variantの実装範囲は[`history/2026-08-31-inner-voices-phase1i.md`](history/2026-08-31-inner-voices-phase1i.md)を参照してください．
 
 `DynamicTonalPerspective.maxpat`はScale Degree Interpretation，Cadential Motion Evidence，Counterpoint Bassを統合し，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡します．`HarmonyGenerator.maxpat`は`HarmonyGenerator_Phase1h`を介してBass Voice Leadingへ接続し，`targetPitchMode`の値によりmanual MIDI（1）とgenerated target（2）を切り替えます．Phase 1hの実装履歴と確認範囲は [`history/2026-08-16-bass-voice-leading-phase1h.md`](history/2026-08-16-bass-voice-leading-phase1h.md) を参照してください．
 
