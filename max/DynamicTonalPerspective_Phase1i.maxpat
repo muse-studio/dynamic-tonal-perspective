@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 97.0, 1284.0, 747.0 ],
+        "rect": [ 34.0, 97.0, 957.0, 747.0 ],
         "boxes": [
             {
                 "box": {
@@ -1618,7 +1618,7 @@
                     "patching_rect": [ 81.0, 582.0, 136.0, 22.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [ 6 ],
+                            "parameter_initial": [ 4.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_invisible": 1,
                             "parameter_longname": "number[1]",
@@ -1916,7 +1916,8 @@
                     "id": "obj-18",
                     "maxclass": "newobj",
                     "numinlets": 3,
-                    "numoutlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
                     "patching_rect": [ 50.0, 153.0, 123.0, 22.0 ],
                     "text": "PitchOperator"
                 }
@@ -2015,6 +2016,8 @@
                     "patching_rect": [ 24.0, 378.0, 136.0, 30.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ -4.4 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "live.gain~",
                             "parameter_mmax": 6.0,
                             "parameter_mmin": -70.0,
@@ -2046,6 +2049,60 @@
                     "numoutlets": 0,
                     "patching_rect": [ 835.0, 555.0, 140.0, 22.0 ],
                     "text": "s leadScaleDegreeClass"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-phase1i-validity-gate",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 380.0, 322.0, 236.0, 22.0 ],
+                    "text": "ObservedPitchValidityGate_Phase1i"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-phase1i-send-interpreted",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 270.0, 547.0, 135.0, 22.0 ],
+                    "text": "s leadInterpretedPitch"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-phase1i-reset-history",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 125.0, 615.0, 88.0, 22.0 ],
+                    "text": "r reset_history"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-phase1i-open-initial-gate",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 125.0, 655.0, 29.5, 22.0 ],
+                    "text": "1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-phase1i-reset-initial-frame",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 125.0, 345.0, 39.0, 22.0 ],
+                    "text": "reset"
                 }
             }
         ],
@@ -2145,14 +2202,6 @@
             {
                 "patchline": {
                     "destination": [ "obj-110", 0 ],
-                    "order": 0,
-                    "source": [ "obj-115", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-93", 0 ],
-                    "order": 1,
                     "source": [ "obj-115", 0 ]
                 }
             },
@@ -2353,6 +2402,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-phase1i-validity-gate", 2 ],
+                    "source": [ "obj-18", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-13", 0 ],
                     "source": [ "obj-187", 0 ]
                 }
@@ -2468,14 +2523,28 @@
             {
                 "patchline": {
                     "destination": [ "obj-164", 0 ],
-                    "order": 1,
+                    "order": 2,
+                    "source": [ "obj-45", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-168", 1 ],
+                    "order": 4,
+                    "source": [ "obj-45", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "order": 0,
                     "source": [ "obj-45", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-74", 0 ],
-                    "order": 0,
+                    "order": 1,
                     "source": [ "obj-45", 0 ]
                 }
             },
@@ -2484,6 +2553,13 @@
                     "destination": [ "obj-76", 0 ],
                     "midpoints": [ 742.5, 514.0, 545.5, 514.0 ],
                     "source": [ "obj-45", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-phase1i-send-interpreted", 0 ],
+                    "order": 3,
+                    "source": [ "obj-45", 0 ]
                 }
             },
             {
@@ -2628,21 +2704,6 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-168", 1 ],
-                    "midpoints": [ 389.5, 543.0, 366.0, 543.0, 366.0, 591.0, 264.0, 591.0, 264.0, 642.0, 251.0, 642.0 ],
-                    "order": 1,
-                    "source": [ "obj-74", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-5", 0 ],
-                    "order": 0,
-                    "source": [ "obj-74", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-10", 0 ],
                     "midpoints": [ 389.5, 647.0, 487.5, 647.0 ],
                     "order": 0,
@@ -2727,7 +2788,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-100", 0 ],
+                    "destination": [ "obj-phase1i-validity-gate", 0 ],
                     "source": [ "obj-93", 0 ]
                 }
             },
@@ -2740,6 +2801,21 @@
             {
                 "patchline": {
                     "destination": [ "obj-111", 0 ],
+                    "order": 2,
+                    "source": [ "obj-98", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-93", 0 ],
+                    "order": 1,
+                    "source": [ "obj-98", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-phase1i-validity-gate", 1 ],
+                    "order": 0,
                     "source": [ "obj-98", 0 ]
                 }
             },
@@ -2747,6 +2823,38 @@
                 "patchline": {
                     "destination": [ "obj-45", 3 ],
                     "source": [ "obj-99", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-171", 0 ],
+                    "source": [ "obj-phase1i-open-initial-gate", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-phase1i-open-initial-gate", 0 ],
+                    "order": 0,
+                    "source": [ "obj-phase1i-reset-history", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-phase1i-reset-initial-frame", 0 ],
+                    "order": 1,
+                    "source": [ "obj-phase1i-reset-history", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-147", 0 ],
+                    "source": [ "obj-phase1i-reset-initial-frame", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-100", 0 ],
+                    "source": [ "obj-phase1i-validity-gate", 0 ]
                 }
             }
         ],

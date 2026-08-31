@@ -291,6 +291,17 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 231.0, 15.0, 30.0, 30.0 ]
                 }
+            },
+            {
+                "box": {
+                    "comment": "voiceActive",
+                    "id": "obj-voice-active-out",
+                    "index": 1,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 390.0, 245.0, 30.0, 30.0 ]
+                }
             }
         ],
         "lines": [
@@ -358,6 +369,12 @@
             {
                 "patchline": {
                     "destination": [ "obj-9", 0 ],
+                    "source": [ "obj-21", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-voice-active-out", 0 ],
                     "source": [ "obj-21", 0 ]
                 }
             },

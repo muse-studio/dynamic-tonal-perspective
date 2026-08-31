@@ -67,6 +67,17 @@
             },
             {
                 "box": {
+                    "id": "rinterp",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 535.0, 50.0, 135.0, 22.0 ],
+                    "text": "r leadInterpretedPitch"
+                }
+            },
+            {
+                "box": {
                     "id": "js",
                     "maxclass": "newobj",
                     "numinlets": 3,
@@ -365,22 +376,21 @@
             {
                 "patchline": {
                     "destination": [ "i1", 1 ],
-                    "order": 2,
-                    "source": [ "rcur", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "i2", 1 ],
                     "order": 1,
                     "source": [ "rcur", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "js", 2 ],
+                    "destination": [ "i2", 1 ],
                     "order": 0,
                     "source": [ "rcur", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "js", 2 ],
+                    "source": [ "rinterp", 0 ]
                 }
             },
             {
