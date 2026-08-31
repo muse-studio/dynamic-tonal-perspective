@@ -29,3 +29,5 @@ temp/
 *.asd
 *.peak
 *.tmp
+max/*_demo_*.zip
+max/Presentation_preview.png

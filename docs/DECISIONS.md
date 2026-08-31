@@ -74,3 +74,51 @@
 - Context: 従来のmanual MIDI target経路を保持しながら、生成Bass targetを段階的に統合する必要がある。
 - Decision: `targetPitchMode`の1をmanual MIDI、2をgenerated targetとして`HarmonyGenerator`内でpitchとloudnessを切り替える。
 - Consequences: 起動時のmode、generated targetの入力、manual経路への復帰をテスト時に明示する必要がある。
+
+## 009: 正式なBass Target Pitchの決定責務
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: `CounterpointBassGenerator_Phase1g`はBass degreeとBass MIDI pitchを出力するが，Phase 1hではregisterと`previousPitch`履歴を考慮した実音高決定を後段で行う．
+- Decision: `CounterpointBassGenerator_Phase1g`のBass MIDI出力は旧来の暫定／診断用出力として扱う．正式なBass Target Pitchは`BassVoiceLeading_Phase1h`が決定する．
+- Consequences: 下流の発音処理はCounterpoint BassのMIDI pitchではなく，Bass Voice Leadingのtarget pitchを使用する．
+
+## 010: Max Search PathとJavaScript object指定
+
+- Date: 2026-08-16
+- Status: Accepted
+- Context: JavaScript実装は`max/js/`に配置されているが，`js js/Foo.js`というobject指定では正常にロードできなかった．
+- Decision: MaxのSearch Pathへ`max/`をSubfolders有効で登録し，`js` objectでは`js/Foo.js`ではなく`Foo.js`を指定する．
+- Consequences: 実行環境ごとにSearch Path設定が必要である．JavaScriptを移動または改名する場合は，Search Pathとobject指定の両方を確認する．
+
+## 011: Observed PitchとInterpreted Pitchの分離
+
+- Date: 2026-08-17
+- Status: Accepted
+- Context: 歌唱音高を単純にnearest MIDIへ量子化すると，局所的なintonationの傾向や歌唱者の遷移意図を保持できない場合がある．
+- Decision: Pitch Operatorの出力をObserved Pitchとし，`PitchInterpreter_Phase1`がInterpretation State，intonation continuity，Temporal StabilityからInterpreted Pitchを決定する．Scale Degree InterpreterにはObserved PitchではなくInterpreted Pitchを渡す．
+- Consequences: Phase 1のPitch InterpreterはRelative Tonal Frame，Scale Degree，Harmonyに依存しない．tonal contextを利用する解釈はPhase 2候補として別途設計する．
+
+## 012: Phase 1 Temporal Stabilityの時間評価
+
+- Date: 2026-08-17
+- Status: Accepted for Phase 1
+- Context: 瞬間的な候補変化だけでInterpreted Pitchを遷移させると，Pitch fluctuationによる不要なtransitionが発生する．
+- Decision: 同一のtransition candidateが継続し，Pitch更新イベント到着時に算出した経過時間が`transitionHoldTime`以上になった場合にtransitionを確定する．
+- Consequences: manual／MIDIテストでは同じPitch Observationをmetro等で継続送信する必要がある．将来はNoteEventUpdateの`previousUpdateAt`，`occurredAt`，`validDeltaTime`と整合する有効Observation継続時間の積算方式を検討する．
+
+## 013: Relative Tonal FrameのPhase 1初期化
+
+- Date: 2026-08-31
+- Status: Accepted for Phase 1
+- Context: 歌い始めのInterpreted Pitchが主音とは限らないため，初期Frame Originの決定には歌い手が意図するScale Degreeが必要となる．
+- Decision: 初回のInterpreted Pitchと申告Scale Degree（1--7）から，diatonic major scaleのsemitone offsetを差し引いて`frameOriginMIDI`を生成する．初回Pitchの取得は1回でゲートを閉じる．
+- Consequences: Phase 1はrelative interpretationのみを対象とし，absolute interpretationと`octaveOffset`は将来実装とする．再初期化時は`initialPitchGate`と関連stateのreset手順を明示する必要がある．
+
+## 014: Phase 1iデモの内声生成
+
+- Date: 2026-08-31
+- Status: Provisional for Phase 1i
+- Context: 一人合唱デモで既存Bassに加えて2つの内声を発音する必要があるが，内声用のEvidence／Decision設計は未確定である．
+- Decision: デモ用Phase 1iでは，major Relative Tonal Frame上でLeadのdiatonic 3rd下と6th下を内声targetとする．Bassは既存のCounterpoint／Bass Voice Leading経路を維持する．
+- Consequences: 内声規則はprovisionalと明示し，研究上の一般的な和声決定とは扱わない．voice crossing，register，voice leading，Lead pitch入力の定義は実機と設計の両面で要検証である．

@@ -30,6 +30,10 @@ Subjective Tonicを基準として音高・音程・和声的関係を相対的�
 
 調性に関する観測、根拠、判断、状態更新を扱う論理的なモジュール概念です。現在のファイル名 `TonalityOperator.maxpat` と概念名の対応、および内部責務の詳細は要確認です。
 
+### Observed Pitch / Interpreted Pitch
+
+Observed PitchはPitch Operatorから得る連続音高観測です．Interpreted Pitchは，Pitch Interpreterが観測履歴とintonation continuityを考慮して選択する離散的なMIDI pitchです．Pitch Interpreter Phase 1ではtonal contextを使用せず，Interpretation StateはTonality Stateと分離して保持します．
+
 ### 一人合唱インタフェース
 
 一人の歌唱入力から複数の調和的な声部を実時間生成し、単独の演奏者が合唱的な表現を行うためのインタフェースです。Dynamic Tonal Perspectiveは、その声部生成を調性認知の推移に応じて制御するための研究基盤に位置づけられます。
@@ -40,11 +44,13 @@ operator-based modular architectureによるMaxプロトタイプの設計・実
 
 ## 現在実装
 
-リポジトリには、メインパッチ、Pitch Operator、Tonality Operator、Harmony Generator、Voice Generator、Voice Managerに加え、Scale Degree Interpretation、Cadential Motion Evidence、Counterpoint Bass、Bass Voice Leading、Bass Part Stateの段階的なMax実装があります。Phase 1h統合テストではScale Degree Interpretationからgenerated BassのMIDI出力経路までを接続しています。メインパッチ全体での生成経路の入力配線と、各パッチの完全な実行時責務は要確認です。
+リポジトリには，メインパッチ，Pitch Operator，Pitch Interpreter，Tonality Operator，Harmony Generator，Voice Generator，Voice Managerに加え，Scale Degree Interpretation，Cadential Motion Evidence，Counterpoint Bass，Bass Voice Leading，Bass Part Stateの段階的なMax実装があります．`DynamicTonalPerspective.maxpat`では，Observed Pitchを`PitchInterpreter_Phase1`でInterpreted Pitchへ変換してから`ScaleDegreeInterpreterExtended_v2`へ渡します．Phase 1eからPhase 1hまでの生成経路も統合され，`frameOriginMIDI`と`bassTargetDegree`をsend／receive経由で下流へ渡す基本動作をMax 9で確認済みです．Counterpoint Bassが出力するBass MIDI pitchは暫定／診断用であり，正式なBass Target PitchはBass Voice Leadingが決定します．
 
 ## 将来実装
 
 Voice Activity Operator、調性推定を含むEvidence / Decision / State Updateの明示的な分離、およびDynamic Tonal Perspectiveに基づく声部生成の統合を候補とします。実装順序と仕様は未確定です。
+
+Pitch Interpretationの次段階では，frame Origin，relative pitch，Relative Tonal Frame等のtonal contextをInterpretation Evidenceとして利用する可能性を検討します．Phase 1では未実装です．
 
 ## 未解決課題
 

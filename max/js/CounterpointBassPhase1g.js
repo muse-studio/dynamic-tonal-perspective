@@ -185,7 +185,7 @@ function processDegree(lead) {
     outlet(4,consonanceClass(ic));
     outlet(3,bm);
     outlet(2,lm);
-    outlet(1,bassPitch);
+    outlet(1,bassPitch); //not use
     outlet(0,best);
 
     prevLead=lead;

@@ -2,7 +2,7 @@
 
 ## 到達点
 
-2026-08-15から16にかけて，歌唱音高のScale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る段階実装を作成した．Phase 1h統合テストでは，生成されたBass target degreeを`HarmonyGenerator_Phase1h`へ渡し，registerを選択したtarget pitchをMIDI出力経路へ送るところまでを接続している．
+2026-08-15から16にかけて，歌唱音高のScale Degree InterpretationからCadential Motion Evidence，Counterpoint Bass，Bass Voice Leadingへ至る段階実装を作成した．その後，`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`を`DynamicTonalPerspective.maxpat`へ統合し，Phase 1eからPhase 1hまでのメインパッチ基本動作をMax 9で確認した．
 
 ## 実装した機能
 
@@ -52,7 +52,7 @@ Major scaleのpitch-class配列`[0, 2, 4, 5, 7, 9, 11]`を使用し，resetま�
 - tonic，dominant，subdominant degreeへの固定bias
 - Cadential Motion Evidenceのtypeとstrengthに基づくcadence contribution
 
-選択結果としてBass degree，Frame Originの1 octave下を基準とするBass MIDI pitch，Lead／Bass motion，consonance class，interval class，parallel-perfect flag，cadence contributionを出力する．Counterpoint Bassの候補評価はRelative Tonal Frameの状態を更新しない．
+選択結果としてBass degree，Frame Originの1 octave下を基準とするBass MIDI pitch，Lead／Bass motion，consonance class，interval class，parallel-perfect flag，cadence contributionを出力する．Counterpoint Bassの候補評価はRelative Tonal Frameの状態を更新しない．Phase 1h以降，このBass MIDI pitchは旧来の暫定／診断用出力として扱い，正式なBass Target Pitchは`BassVoiceLeading_Phase1h`が決定する．
 
 ## Bass Voice Leading
 
@@ -64,7 +64,7 @@ Major scaleのpitch-class配列`[0, 2, 4, 5, 7, 9, 11]`を使用し，resetま�
 
 `BassPartState_Phase1h.maxpat`は`f -1.`で`previousPitch`を外部保持する．target degreeイベントごとに，保存済みpitchを先にBass Voice Leadingへ送り，次にtarget degreeで評価を起動する．選択されたtarget pitchは次イベント用に`f`のcold inletへ保存する．reset時は履歴を-1へ戻す．
 
-`HarmonyGenerator.maxpat`と`HarmonyGenerator_Phase1h.maxpat`にも同じ外部state loopが実装されている．`BassVoiceLeading_Phase1h`自身はPart Stateを更新しない．`js/BassVoiceLeading_Phase1h.js`にはstandalone test用の内部履歴版も残されているが，統合パッチはstateless版を参照する．
+`HarmonyGenerator_Phase1h.maxpat`にも同じ外部state loopが実装され，`HarmonyGenerator.maxpat`から利用される．`BassVoiceLeading_Phase1h`自身はPart Stateを更新しない．`js/BassVoiceLeading_Phase1h.js`にはstandalone test用の内部履歴版も残されているが，統合パッチはstateless版を参照する．
 
 ## targetPitchMode
 
@@ -77,21 +77,54 @@ Major scaleのpitch-class配列`[0, 2, 4, 5, 7, 9, 11]`を使用し，resetま�
 
 ## HarmonyGeneratorへの統合
 
-`HarmonyGenerator`のgenerated target側には`BassVoiceLeading_Phase1h`が配置され，Frame Origin，target degree，previous Bass pitch，resetを受け取る．選択されたtarget pitchと`currentPitch`との差を`voice interval`として出力し，generated loudnessを別outletへ出力する．diagnosticとしてmovement，score，candidate list，selected octaveもパッチ内に表示する．
+`DynamicTonalPerspective.maxpat`は`ScaleDegreeInterpreterExtended_v2`，`CadentialMotionEvidence_Phase1f_v3`，`CounterpointBassGenerator_Phase1g`を統合する．Frame Originは`s frameOriginMIDI`，生成されたBass target degreeは`s bassTargetDegree`から送信する．
 
-`VoiceManager.maxpat`は`HarmonyGenerator`のvoice intervalを`VoiceGenerator`へ，loudnessを`adsr~`へ接続している．ただし，`DynamicTonalPerspective`／`VoiceManager`から`HarmonyGenerator`のFrame Originおよびtarget degree inletへ至る接続は，現在のpatchlineから確認できないため，要確認である．
+`VoiceManager.maxpat`は`r bassTargetDegree`から受け取ったdegreeを`HarmonyGenerator`へ渡す．`HarmonyGenerator`は`HarmonyGenerator_Phase1h`を介して`BassVoiceLeading_Phase1h`へ接続し，Bass Voice Leadingは`r frameOriginMIDI`からFrame Originを受け取る．選択されたtarget pitchと`currentPitch`との差を`voice interval`として`VoiceGenerator`へ，loudnessを`adsr~`へ渡す．この経路の基本動作をMax 9で確認した．
 
-## MIDIによるBass出力確認
+## Max 9でのメインパッチ統合確認
 
-`tests/max/CounterpointBassHarmonyIntegratedTest_Phase1h.maxpat`は，`HarmonyGenerator_Phase1h`のtarget pitch outletを`makenote 127 1000`と`noteout 1`へ接続している．load時に`targetPitchMode 2`とgenerated loudness 0.16を設定する．このため，Lead pitch入力から生成Bass MIDI noteへ至る確認経路はパッチ上に存在する．
+### VII→I入力
 
-本整理セッションではMax 9の存在を確認したが，Computer Useによる画面取得が2回タイムアウトしたため，パッチロード，Missing Objectの有無，実際のMIDI発音は再確認できていない．MIDI出力結果は要実機確認である．
+`PitchStream`へ59→60を入力し，次を確認した．
+
+- previous degree：7
+- motion type：1
+- strength：1
+- candidate Frame Origin MIDI：60
+- Bass Target Degree：3
+
+### Bass Voice Leading
+
+上記で得たTarget Degree 3に対し，次を確認した．
+
+- valid candidates：`[40, 52, 64]`
+- target pitch：52
+- movement：4
+- voice-leading score：0.2
+- selected octave：3
+
+### 非整数PitchStream
+
+実際のPitchStreamに含まれる非整数入力59.536858で，次を確認した．
+
+- nearest diatonic MIDI：60
+- deviation：約-0.463
+- melodic diatonic steps：0
+- motion type：0
+- strength：0
+
+同一degree内のpitch fluctuationをCadential Motionとして誤検出しないことを確認した．
+
+## Max Search PathとJavaScriptロード
+
+MaxのSearch Pathには`max/`をSubfolders有効で登録している．この構成では，`max/js/`内のJavaScriptを参照する`js` objectに`js/Foo.js`ではなく`Foo.js`と指定することで正常にロードできた．Phase 1h主要パッチのobject指定はこの方式を使用する．
 
 ## 主要な設計判断
 
 - Scale Degree Class，Extended Scale Degree，Diatonic Positionを別の表現として扱う．
 - Evidenceはcandidate Frame Originを生成しても状態を更新しない．
 - Counterpoint Bassは終止Evidenceを生成候補のscoreへ利用するが，Tonality Stateを更新しない．
+- Counterpoint BassのBass MIDI pitchは暫定／診断用とし，正式なBass Target PitchはBass Voice Leadingが決定する．
 - Bass Voice LeadingとBass Part Stateを分離し，状態更新は外部state loopが担う．
 - Phase 1hでは音域制約と直前音からの距離をregister選択の基準とする．
 - manual MIDI経路を保持し，`targetPitchMode`でgenerated経路を切り替える．
@@ -100,22 +133,30 @@ Major scaleのpitch-class配列`[0, 2, 4, 5, 7, 9, 11]`を使用し，resetま�
 ## 現在のデータフロー
 
 ```text
-Lead MIDI pitch + Frame Origin
-  → ScaleDegreeInterpreterExtended_v2
+PitchStream + Frame Origin
+  → DynamicTonalPerspective
+    → ScaleDegreeInterpreterExtended_v2
       ├→ Scale Degree Class
       ├→ Extended Scale Degree
       ├→ Diatonic Position
       ├→ melodic diatonic steps
       └→ nearest diatonic MIDI pitch
-  → CadentialMotionEvidence_Phase1f_v3
+    → CadentialMotionEvidence_Phase1f_v3
       └→ motion type + strength + candidate Frame Origin
-  → CounterpointBassGenerator_Phase1g
-      └→ Bass target degree
-  → HarmonyGenerator_Phase1h
-      → Bass Voice Leading + external previousPitch state
+    → CounterpointBassGenerator_Phase1g
+      ├→ diagnostic Bass MIDI pitch
+      └→ Bass target degree → s bassTargetDegree
+    → Frame Origin → s frameOriginMIDI
+  → VoiceManager
+    → r bassTargetDegree
+    → HarmonyGenerator
+    → HarmonyGenerator_Phase1h
+      → BassVoiceLeading_Phase1h
+        ├→ r frameOriginMIDI
+        ├→ external previousPitch state
+        └→ formal Bass Target Pitch
       → target pitch - currentPitch
-      → voice interval
-      └→ target pitch → makenote → noteout（統合テスト）
+      └→ voice interval → VoiceGenerator
 ```
 
 ## 追加・変更した主要ファイル
@@ -158,7 +199,11 @@ Lead MIDI pitch + Frame Origin
 - Counterpoint BassのVII→I evidence付きLead I：Bass degree 1，Bass MIDI 48，cadence contribution 6を確認
 - Bass Voice LeadingのFrame Origin 60，previousPitch 48，degree V：candidate `[43, 55]`からtarget 43，movement 5，octave 2を確認
 - 対象テキスト差分の`git diff --check`：PASS
-- Max 9でのロードとMIDI発音：未確認
+- Max 9でPhase 1e→1f→1g→1hのメインパッチ統合基本動作：PASS
+- `PitchStream` 59→60：previous degree 7，motion type 1，strength 1，candidate Frame Origin 60，Bass Target Degree 3を確認
+- Bass Target Degree 3：candidate `[40, 52, 64]`，target pitch 52，movement 4，score 0.2，octave 3を確認
+- 非整数`PitchStream` 59.536858：nearest diatonic MIDI 60，deviation約-0.463，melodic steps 0，motion type 0，strength 0を確認
+- Max Search Pathへ`max/`をSubfolders有効で登録し，JavaScript basename指定で正常ロードを確認
 
 元から未追跡だった`max/abstractions/TonalityDecisionPhase1Test/FrameDecision.maxpat`は，参照する`FrameDecisionPhase1.js`が存在しないため対象外とした．
 
@@ -168,13 +213,11 @@ Lead MIDI pitch + Frame Origin
 - Bass音域はE2--E4（MIDI 40--64）に固定されている．
 - Bass Voice Leadingは最短距離だけでregisterを選び，voice-leading scoreは診断用の暫定値である．
 - Counterpoint Bassの規則とweightはPhase 1の固定値であり，音楽的妥当性の評価は未実施である．
-- Max 9でのMissing Object，MIDI port，audio output，実時間動作はこの整理セッションでは確認できていない．
-- メインパッチからgenerated Bass経路へFrame Originとtarget degreeを供給する配線は要確認である．
+- Counterpoint BassのBass MIDI pitchは正式な発音用Bass Target Pitchではない．
+- Search Pathへ`max/`をSubfolders有効で登録する環境設定が必要である．
 
 ## 次の実装候補
 
-- Max 9で統合テストを開き，Missing ObjectとMIDI channel 1の発音を確認する．
-- メインパッチ／VoiceManagerからHarmonyGeneratorへのFrame Origin，target degree，resetの供給経路を確認する．
 - mode-dependent degree-to-pitch mappingを設計する．
 - Bass range，移動距離以外のregister score，声部交差条件を検討する．
 - Counterpoint BassとBass Part Stateのreset／new session境界を統合テストする．
